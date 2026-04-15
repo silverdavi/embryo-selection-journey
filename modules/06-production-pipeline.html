@@ -128,6 +128,70 @@
       color: #F472B6;
     }
 
+    .running-example {
+      width: 100%;
+      max-width: 1100px;
+      margin-bottom: 2rem;
+      background: var(--bg-surface);
+      border: 1px solid rgba(155, 125, 255, 0.2);
+      border-radius: 8px;
+      overflow: hidden;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.55s forwards;
+    }
+    .re-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.8rem 1rem;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .re-thumb {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(155, 125, 255, 0.3);
+    }
+    .re-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+    .re-badge {
+      font-family: var(--font-mono);
+      font-size: 0.5rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #9B7DFF;
+    }
+    .re-id {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .re-patient {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text-muted);
+    }
+    .re-body {
+      padding: 1rem 1.2rem;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+    .re-body strong { color: var(--text-primary); font-weight: 600; }
+    .re-body code {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      background: var(--bg-elevated);
+      padding: 0.1rem 0.35rem;
+      border-radius: 3px;
+    }
+
     @keyframes fadeUp {
       from {
         opacity: 0;
@@ -147,6 +211,20 @@
       <h1>From Image to Insight</h1>
       <p>In production, the Bonna pipeline runs on EC2 with GPU acceleration, processing embryo images through an SQS queue and computing cycle-level live birth probabilities.</p>
     </header>
+
+    <div class="running-example">
+      <div class="re-header">
+        <img src="../assets/embryo-timelapse.gif" alt="Embryo #47" class="re-thumb">
+        <div class="re-meta">
+          <span class="re-badge">RUNNING EXAMPLE</span>
+          <span class="re-id">Embryo #47 — Day 5 Blastocyst</span>
+          <span class="re-patient">Patient: 34yo, AMH 2.1 ng/mL, BMI 24.2</span>
+        </div>
+      </div>
+      <div class="re-body">
+        <p>In production: the clinic uploads <strong>Embryo #47's</strong> image via the GenPrime web interface. It's queued to 8 SQS fold-specific queues. EC2 returns <code>p_implantation = 72%</code>, <code>s_implantation = 5%</code>, <code>p_aneuploidy = 22%</code> (age 34). When the cycle's 6 other embryos finish scoring, the Lambda computes: <code>p_livebirth = 1 - ∏(1 - 0.875 × pᵢ) = 84%</code> for the full cycle. A <code>cycle_done</code> WebSocket event fires to the clinic dashboard.</p>
+      </div>
+    </div>
 
     <div class="content">
       <section class="content-section pipeline-flow" aria-label="Production pipeline">

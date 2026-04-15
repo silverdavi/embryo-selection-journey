@@ -147,6 +147,70 @@
       color: var(--text-muted);
     }
 
+    .running-example {
+      width: 100%;
+      max-width: 1100px;
+      margin-bottom: 2rem;
+      background: var(--bg-surface);
+      border: 1px solid rgba(155, 125, 255, 0.2);
+      border-radius: 8px;
+      overflow: hidden;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.55s forwards;
+    }
+    .re-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.8rem 1rem;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .re-thumb {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(155, 125, 255, 0.3);
+    }
+    .re-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+    .re-badge {
+      font-family: var(--font-mono);
+      font-size: 0.5rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #9B7DFF;
+    }
+    .re-id {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .re-patient {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text-muted);
+    }
+    .re-body {
+      padding: 1rem 1.2rem;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+    .re-body strong { color: var(--text-primary); font-weight: 600; }
+    .re-body code {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      background: var(--bg-elevated);
+      padding: 0.1rem 0.35rem;
+      border-radius: 3px;
+    }
+
     @keyframes fadeUp {
       from {
         opacity: 0;
@@ -166,6 +230,20 @@
       <h1>Embryologist + Algorithm</h1>
       <p>Bonna integrates into GenPrime&rsquo;s clinical workflow as a decision-support tool — complementing embryologist expertise with objective, calibrated predictions.</p>
     </header>
+
+    <div class="running-example">
+      <div class="re-header">
+        <img src="../assets/embryo-timelapse.gif" alt="Embryo #47" class="re-thumb">
+        <div class="re-meta">
+          <span class="re-badge">RUNNING EXAMPLE</span>
+          <span class="re-id">Embryo #47 — Day 5 Blastocyst</span>
+          <span class="re-patient">Patient: 34yo, AMH 2.1 ng/mL, BMI 24.2</span>
+        </div>
+      </div>
+      <div class="re-body">
+        <p><strong>Embryo #47</strong> appears on the clinic dashboard ranked <strong>#2 of 7</strong> in the cycle, with <code>p_implantation = 72%</code> and a high confidence badge. The embryologist reviews the score alongside their own Gardner BB assessment. They select #47 for transfer, supported by Bonna's objective analysis. <strong>Result: positive fetal heartbeat at 7 weeks, confirmed ongoing pregnancy at 12 weeks.</strong> The AI didn't replace the embryologist — it gave them the confidence to trust their instinct on a borderline call.</p>
+      </div>
+    </div>
 
     <div class="content">
       <section class="content-section split" aria-label="Clinical dashboards">
