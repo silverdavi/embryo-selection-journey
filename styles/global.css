@@ -1,0 +1,278 @@
+/* ============================================
+   EMBRYO SELECTION JOURNEY — GLOBAL DESIGN TOKENS
+   Rhea Labs / Rhea Fertility brand-tinted dark theme
+   ============================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500;700&display=swap');
+
+:root {
+  /* ── Backgrounds — purple-tinted medical dark ── */
+  --bg-deep:     #08070E;
+  --bg-surface:  #0F0D18;
+  --bg-elevated: #171422;
+  --bg-hover:    #1E1A2D;
+
+  /* ── Text ── */
+  --text-primary:   #EAE8F0;
+  --text-secondary: #908D9A;
+  --text-muted:     #504D5C;
+
+  /* ── Brand accent — Rhea purple ── */
+  --accent: #9B7DFF;
+  --accent-glow: rgba(155, 125, 255, 0.25);
+
+  /* ── Stage colors — medical / biology palette ── */
+  --layer-1: #FF6B8A;  /* The Problem — warm red */
+  --layer-2: #7DD3FC;  /* Doodle segmentation — cool blue */
+  --layer-3: #9B7DFF;  /* Architecture — brand purple */
+  --layer-4: #4ADE80;  /* Performance — green */
+  --layer-5: #FBBF24;  /* Confidence — amber */
+  --layer-6: #22D3EE;  /* Pipeline — cyan */
+  --layer-7: #F472B6;  /* Clinical — rose */
+
+  /* ── Stage glows ── */
+  --glow-1: rgba(255, 107, 138, 0.15);
+  --glow-2: rgba(125, 211, 252, 0.15);
+  --glow-3: rgba(155, 125, 255, 0.15);
+  --glow-4: rgba(74, 222, 128, 0.15);
+  --glow-5: rgba(251, 191, 36, 0.15);
+  --glow-6: rgba(34, 211, 238, 0.15);
+  --glow-7: rgba(244, 114, 182, 0.15);
+
+  /* ── Typography ── */
+  --font-display: 'Fraunces', Georgia, serif;
+  --font-body:    'Plus Jakarta Sans', system-ui, sans-serif;
+  --font-mono:    'JetBrains Mono', monospace;
+
+  /* ── Layout ── */
+  --timeline-height: 72px;
+
+  /* ── Motion ── */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+html {
+  font-size: 18px;
+}
+
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  background: var(--bg-deep);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  height: 100%;
+  width: 100%;
+}
+
+::selection {
+  background-color: rgba(155, 125, 255, 0.3);
+  color: white;
+}
+
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+  opacity: 0.03;
+  pointer-events: none;
+  mix-blend-mode: overlay;
+  z-index: 9999;
+}
+
+.module-container {
+  width: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 4rem 2rem 6rem;
+  position: relative;
+}
+
+.intro {
+  text-align: center;
+  max-width: 720px;
+  margin-bottom: 3rem;
+}
+
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+  opacity: 0;
+  animation: fadeUp 0.8s var(--ease-out-expo) 0.2s forwards;
+}
+
+.intro h1 {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+  opacity: 0;
+  animation: fadeUp 0.8s var(--ease-out-expo) 0.4s forwards;
+}
+
+.intro p {
+  font-size: 0.88rem;
+  color: var(--text-secondary);
+  line-height: 1.7;
+  opacity: 0;
+  animation: fadeUp 0.8s var(--ease-out-expo) 0.6s forwards;
+}
+
+.content {
+  width: 100%;
+  max-width: 1100px;
+  opacity: 0;
+  animation: fadeUp 0.8s var(--ease-out-expo) 0.8s forwards;
+}
+
+.card {
+  background: var(--bg-surface);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.card-header {
+  padding: 0.65rem 0.85rem;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-secondary);
+}
+
+.card-body {
+  padding: 1.2rem 1.4rem;
+}
+
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.stat-card {
+  background: var(--bg-surface);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 8px;
+  padding: 1.2rem;
+  text-align: center;
+}
+
+.stat-value {
+  font-family: var(--font-mono);
+  font-size: 1.8rem;
+  font-weight: 700;
+  margin-bottom: 0.3rem;
+}
+
+.stat-label {
+  font-size: 0.72rem;
+  color: var(--text-secondary);
+}
+
+.stat-sub {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  margin-top: 0.2rem;
+}
+
+.image-frame {
+  background: var(--bg-surface);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.image-frame img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.image-caption {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 0.6rem 0.8rem;
+  background: var(--bg-elevated);
+  letter-spacing: 0.04em;
+}
+
+.teaser {
+  margin-top: 3rem;
+  text-align: center;
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  opacity: 0;
+  animation: fadeUp 0.8s var(--ease-out-expo) 1.6s forwards;
+}
+
+.teaser span {
+  font-weight: 600;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.insight-box {
+  border-left: 3px solid;
+  padding: 1rem 1.2rem;
+  background: var(--bg-surface);
+  border-radius: 0 6px 6px 0;
+  margin: 1.5rem 0;
+}
+
+.insight-box p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.insight-box .insight-title {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 0.5rem;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes countUp {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--text-muted); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: var(--text-secondary); }

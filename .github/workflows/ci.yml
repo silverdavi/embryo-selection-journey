@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  smoke-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run smoke tests
+        run: bash tests/smoke.sh
+
+      - name: Validate HTML with htmlhint
+        run: |
+          npm install -g htmlhint
+          htmlhint index.html modules/*.html --config '{"tagname-lowercase": true, "attr-lowercase": true, "doctype-first": true}' || true
+
+      - name: Check for broken internal links
+        run: |
+          echo "Checking internal references..."
+          FAIL=0
+          for href in $(grep -oP 'data-src="\K[^"]+' index.html); do
+            if [ ! -f "$href" ]; then
+              echo "BROKEN: $href referenced in index.html"
+              FAIL=1
+            fi
+          done
+          for f in modules/*.html; do
+            for ref in $(grep -oP 'href="\K\.\./styles/[^"]+' "$f"); do
+              target="modules/$ref"
+              resolved=$(cd modules && realpath --relative-to=. "$ref" 2>/dev/null || echo "$ref")
+              if [ ! -f "styles/global.css" ]; then
+                echo "BROKEN: $f references $ref"
+                FAIL=1
+              fi
+            done
+          done
+          if [ $FAIL -eq 0 ]; then echo "All internal links valid."; fi
+          exit $FAIL

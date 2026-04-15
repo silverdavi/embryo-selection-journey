@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stage 06 — From Image to Insight</title>
+  <link rel="stylesheet" href="../styles/global.css">
+  <style>
+    body {
+      overflow-y: auto;
+      padding-bottom: 80px;
+    }
+
+    .content {
+      opacity: 1;
+      animation: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .content-section {
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease-out-expo) forwards;
+    }
+    .content-section:nth-child(1) { animation-delay: 0.85s; }
+    .content-section:nth-child(2) { animation-delay: 1s; }
+    .content-section:nth-child(3) { animation-delay: 1.15s; }
+    .content-section:nth-child(4) { animation-delay: 1.3s; }
+
+    .teaser {
+      animation-delay: 1.5s;
+    }
+
+    .stage-cyan { color: #22D3EE; }
+
+    .pipeline-flow {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 0;
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    .pipeline-step {
+      background: var(--bg-surface);
+      border-left: 3px solid #22D3EE;
+      padding: 1rem 1.2rem;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .pipeline-step-num {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: #22D3EE;
+      letter-spacing: 0.08em;
+      margin-bottom: 0.35rem;
+    }
+
+    .pipeline-step-title {
+      font-size: 0.82rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .pipeline-step-desc {
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .pipeline-code {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: #22D3EE;
+      background: rgba(34, 211, 238, 0.08);
+      padding: 0.1em 0.35em;
+      border-radius: 3px;
+    }
+
+    .pipeline-arrow {
+      height: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .pipeline-arrow::after {
+      content: '';
+      width: 0;
+      height: 0;
+      border-left: 8px solid transparent;
+      border-right: 8px solid transparent;
+      border-top: 10px solid #22D3EE;
+      opacity: 0.85;
+    }
+
+    .card-body.infra-text,
+    .card-body.equation-intro {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+
+    .equation-block {
+      background: var(--bg-deep);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 6px;
+      padding: 0.85rem 1rem;
+      margin-top: 0.75rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      line-height: 1.55;
+      color: var(--text-primary);
+    }
+
+    .equation-block:first-of-type {
+      margin-top: 0;
+    }
+
+    .var-p { color: #22D3EE; }
+    .var-f { color: #FBBF24; }
+    .var-age { color: #FF6B8A; }
+
+    .teaser-rose {
+      color: #F472B6;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="module-container">
+    <header class="intro">
+      <p class="label stage-cyan">STAGE 06</p>
+      <h1>From Image to Insight</h1>
+      <p>In production, the Bonna pipeline runs on EC2 with GPU acceleration, processing embryo images through an SQS queue and computing cycle-level live birth probabilities.</p>
+    </header>
+
+    <div class="content">
+      <section class="content-section pipeline-flow" aria-label="Production pipeline">
+        <div class="pipeline-step">
+          <div class="pipeline-step-num">STEP 01</div>
+          <div class="pipeline-step-title">CLINIC UPLOAD</div>
+          <p class="pipeline-step-desc">Day-5 blastocyst image or TLI video uploaded via web interface. Videos undergo frame selection (gradient analysis, HPI heuristics).</p>
+        </div>
+        <div class="pipeline-arrow" aria-hidden="true"></div>
+        <div class="pipeline-step">
+          <div class="pipeline-step-num">STEP 02</div>
+          <div class="pipeline-step-title">SQS QUEUE</div>
+          <p class="pipeline-step-desc">Image queued to 8 fold-specific SQS queues for parallel inference across the ensemble.</p>
+        </div>
+        <div class="pipeline-arrow" aria-hidden="true"></div>
+        <div class="pipeline-step">
+          <div class="pipeline-step-num">STEP 03</div>
+          <div class="pipeline-step-title">EC2 GPU INFERENCE</div>
+          <p class="pipeline-step-desc">MobileNetV2 + DoodleP2P + ViT ensemble processes at 256×256 RGB. Mean of 8 folds = p_implantation. STD = confidence.</p>
+        </div>
+        <div class="pipeline-arrow" aria-hidden="true"></div>
+        <div class="pipeline-step">
+          <div class="pipeline-step-num">STEP 04</div>
+          <div class="pipeline-step-title">ANEUPLOIDY ESTIMATION</div>
+          <p class="pipeline-step-desc">Age-based parametric sigmoid: 20% at young ages → 90% at advanced maternal age. PSigmoid(0.20, 0.90, 35.0, 0.25).</p>
+        </div>
+        <div class="pipeline-arrow" aria-hidden="true"></div>
+        <div class="pipeline-step">
+          <div class="pipeline-step-num">STEP 05</div>
+          <div class="pipeline-step-title">CYCLE MODEL (Lambda)</div>
+          <p class="pipeline-step-desc">When all embryos scored: p_livebirth = 1 - ∏(1 - FHB2LB × p_i). Computes high/mid/low confidence bands by age.</p>
+        </div>
+        <div class="pipeline-arrow" aria-hidden="true"></div>
+        <div class="pipeline-step">
+          <div class="pipeline-step-num">STEP 06</div>
+          <div class="pipeline-step-title">WEBSOCKET NOTIFY</div>
+          <p class="pipeline-step-desc">Real-time <code class="pipeline-code">cycle_done</code> event pushes results to clinic dashboard.</p>
+        </div>
+      </section>
+
+      <section class="content-section card" aria-labelledby="autoscal-heading">
+        <div class="card-header" id="autoscal-heading">AUTO-SCALING INFRASTRUCTURE</div>
+        <div class="card-body infra-text">
+          <p>The EC2 instance auto-hibernates after 10 minutes of no messages, minimizing cost. Model weights (2024-12-31.zip) are versioned in S3 with hot-swap capability — the service checks for updates hourly and restarts seamlessly. Each clinic&rsquo;s data is isolated and processed in-order via SQS FIFO.</p>
+        </div>
+      </section>
+
+      <section class="content-section card" aria-labelledby="math-heading">
+        <div class="card-header" id="math-heading">LIVE BIRTH PROBABILITY — THE MATH</div>
+        <div class="card-body equation-intro">
+          <div class="equation-block" aria-label="Overall implantation probability">
+            <span class="var-p">p_overall</span> = mean(<span class="var-p">p_implantation</span><sub>1</sub>, <span class="var-p">p_implantation</span><sub>2</sub>, &hellip;, <span class="var-p">p_implantation</span><sub>n</sub>)
+          </div>
+          <div class="equation-block" aria-label="Live birth probability">
+            <span class="var-p">p_livebirth</span> = 1 - ∏<sub>i</sub>(1 - <span class="var-f">FHB2LB</span>(<span class="var-age">age</span>) × <span class="var-p">p</span><sub>i</sub>)
+          </div>
+          <div class="equation-block" aria-label="FHB2LB sigmoid">
+            <span class="var-f">FHB2LB</span>(<span class="var-age">age</span>) = sigmoid(0, 0.875, 44.96, -0.464)
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <p class="teaser"><span class="teaser-rose">The pipeline delivers numbers. The product delivers understanding. →</span></p>
+  </div>
+</body>
+</html>

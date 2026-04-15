@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stage 04 — State of the Art</title>
+  <link rel="stylesheet" href="../styles/global.css">
+  <style>
+    body {
+      overflow-y: auto;
+      padding-bottom: 80px;
+    }
+
+    .content {
+      opacity: 1;
+      animation: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .content-section {
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease-out-expo) forwards;
+    }
+    .content-section:nth-child(1) { animation-delay: 0.85s; }
+    .content-section:nth-child(2) { animation-delay: 1s; }
+    .content-section:nth-child(3) { animation-delay: 1.15s; }
+    .content-section:nth-child(4) { animation-delay: 1.3s; }
+
+    .teaser {
+      animation-delay: 1.5s;
+    }
+
+    .stage-accent { color: #4ADE80; }
+    .stat-value.stage-accent { color: #4ADE80; }
+
+    .split {
+      grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 768px) {
+      .split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .timeline-list {
+      list-style: none;
+      margin: 0;
+      padding: 0 0 0 1.25rem;
+      border-left: 2px solid rgba(74, 222, 128, 0.35);
+    }
+    .timeline-list li {
+      position: relative;
+      padding: 0 0 1.25rem 1rem;
+    }
+    .timeline-list li:last-child {
+      padding-bottom: 0;
+    }
+    .timeline-list li::before {
+      content: '';
+      position: absolute;
+      left: calc(-1.25rem - 5px);
+      top: 0.35rem;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--bg-deep);
+      border: 2px solid #4ADE80;
+    }
+    .timeline-year {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: #4ADE80;
+      margin-bottom: 0.25rem;
+    }
+    .timeline-title {
+      font-weight: 600;
+      font-size: 0.88rem;
+      margin-bottom: 0.35rem;
+    }
+    .timeline-desc {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    .insight-box.stage-4 {
+      border-left-color: #4ADE80;
+    }
+
+    .teaser-gold {
+      color: #FBBF24;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="module-container">
+    <header class="intro">
+      <p class="label stage-accent">STAGE 04</p>
+      <h1>State of the Art</h1>
+      <p>Validated on 5,141 embryos from 4 countries with 10-fold cross-validation, Bonna achieves AUC 0.754 — outperforming every published model and all 36 embryologists individually.</p>
+    </header>
+
+    <div class="content">
+      <section class="content-section stat-grid" aria-label="Performance metrics">
+        <div class="stat-card">
+          <div class="stat-value stage-accent">0.754</div>
+          <div class="stat-label">AUC (Bonna)</div>
+          <div class="stat-sub">10-fold CV, 1,292 KID embryos</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value stage-accent">0.707</div>
+          <div class="stat-label">iDAScore v2</div>
+          <div class="stat-sub">Previous best-in-class</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value stage-accent">0.700</div>
+          <div class="stat-label">Ubar (2022)</div>
+          <div class="stat-sub">Rhea's predecessor model</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value stage-accent">0.570</div>
+          <div class="stat-label">Embryologists</div>
+          <div class="stat-sub">Average of 36 professionals</div>
+        </div>
+      </section>
+
+      <section class="content-section split" aria-label="Charts">
+        <figure class="image-frame">
+          <img src="../assets/auc-comparison-chart.png" alt="Bar chart comparing AUC of embryo assessment models from 2016 through 2024">
+          <figcaption class="image-caption">AUC COMPARISON — Day 5 embryo assessment models (2016–2024)</figcaption>
+        </figure>
+        <figure class="image-frame">
+          <img src="../assets/roc-curve-vs-embryologists.png" alt="ROC curves comparing deep learning model to 36 embryologists">
+          <figcaption class="image-caption">ROC CURVE — Deep learning model (AUC=0.70) vs 36 embryologists (AUC=0.61)</figcaption>
+        </figure>
+      </section>
+
+      <section class="content-section card" aria-labelledby="evo-heading">
+        <div class="card-header" id="evo-heading">EVOLUTION OF RHEA'S MODELS</div>
+        <div class="card-body">
+          <ul class="timeline-list">
+            <li>
+              <div class="timeline-year">2020</div>
+              <div class="timeline-title">Ubar v1 — MIDL Conference</div>
+              <p class="timeline-desc">AUC 0.82 on 272 embryos (vs 0.58 expert panel). PPV 93% vs 81%.</p>
+            </li>
+            <li>
+              <div class="timeline-year">2020</div>
+              <div class="timeline-title">Ubar — ESHRE ePoster</div>
+              <p class="timeline-desc">Overall accuracy 83.8% vs 73.8% for 5-member expert panel.</p>
+            </li>
+            <li>
+              <div class="timeline-year">2022</div>
+              <div class="timeline-title">DNN Ensemble — Human Reproduction</div>
+              <p class="timeline-desc">AUC 0.70. Outperformed all 36 embryologists individually. 20.5% accuracy improvement.</p>
+            </li>
+            <li>
+              <div class="timeline-year">2024</div>
+              <div class="timeline-title">Bonna — Springer LNCS</div>
+              <p class="timeline-desc">AUC 0.754 on multi-center data from Israel, Spain, Ukraine, France. State-of-the-art.</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <aside class="content-section insight-box stage-4" aria-label="Methodological note">
+        <p class="insight-title">METHODOLOGICAL INTEGRITY</p>
+        <p>Unlike models claiming AUC &gt;0.9 (which use non-transferred embryos as negatives or human scores as ground truth), Bonna validates exclusively against Known Implantation Data (KID) — fetal heartbeat confirmed at 5-8 weeks post-transfer. This is the hardest, most clinically honest benchmark.</p>
+      </aside>
+    </div>
+
+    <p class="teaser"><span class="teaser-gold">Raw AUC tells part of the story. Bonna's confidence score tells the rest. →</span></p>
+  </div>
+</body>
+</html>

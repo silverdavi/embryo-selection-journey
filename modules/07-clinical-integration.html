@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stage 07 — Embryologist + Algorithm</title>
+  <link rel="stylesheet" href="../styles/global.css">
+  <style>
+    body {
+      overflow-y: auto;
+      padding-bottom: 80px;
+    }
+
+    .content {
+      opacity: 1;
+      animation: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .content-section {
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease-out-expo) forwards;
+    }
+    .content-section:nth-child(1) { animation-delay: 0.85s; }
+    .content-section:nth-child(2) { animation-delay: 1s; }
+    .content-section:nth-child(3) { animation-delay: 1.15s; }
+    .content-section:nth-child(4) { animation-delay: 1.3s; }
+    .content-section:nth-child(5) { animation-delay: 1.45s; }
+    .content-section:nth-child(6) { animation-delay: 1.6s; }
+    .content-section:nth-child(7) { animation-delay: 1.75s; }
+
+    .stage-rose { color: #F472B6; }
+    .stat-value.stage-rose { color: #F472B6; }
+
+    .split {
+      grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 768px) {
+      .split {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .workflow-flow {
+      display: flex;
+      flex-direction: row;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .workflow-step {
+      flex: 1 1 200px;
+      min-width: 0;
+      background: var(--bg-surface);
+      border-radius: 8px;
+      padding: 1rem 1.1rem;
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-top: 3px solid #F472B6;
+    }
+
+    .workflow-step-title {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text-primary);
+      margin-bottom: 0.5rem;
+    }
+
+    .workflow-step-text {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .insight-box.stage-7 {
+      border-left-color: #F472B6;
+    }
+
+    .pub-list {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .pub-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .pub-badge {
+      display: inline-block;
+      align-self: flex-start;
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      padding: 0.25rem 0.5rem;
+      border-radius: 4px;
+      color: var(--bg-deep);
+    }
+
+    .pub-title {
+      font-size: 0.82rem;
+      font-weight: 600;
+      line-height: 1.45;
+    }
+
+    .pub-details {
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .journey-finale {
+      margin-top: 3rem;
+      text-align: center;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease-out-expo) 1.9s forwards;
+    }
+
+    .journey-finale-mark {
+      font-size: 2rem;
+      line-height: 1;
+      color: #9B7DFF;
+      margin-bottom: 0.5rem;
+    }
+
+    .journey-finale-brand {
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      margin-bottom: 0.35rem;
+    }
+
+    .journey-finale-url {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="module-container">
+    <header class="intro">
+      <p class="label stage-rose">STAGE 07</p>
+      <h1>Embryologist + Algorithm</h1>
+      <p>Bonna integrates into GenPrime&rsquo;s clinical workflow as a decision-support tool — complementing embryologist expertise with objective, calibrated predictions.</p>
+    </header>
+
+    <div class="content">
+      <section class="content-section split" aria-label="Clinical dashboards">
+        <figure class="image-frame">
+          <img src="../assets/rhea-dashboard.png" alt="GenPrime dashboard showing Rhea fertility tools">
+          <figcaption class="image-caption">GENPRIME DASHBOARD — Rhea&rsquo;s suite of AI-powered fertility tools</figcaption>
+        </figure>
+        <figure class="image-frame">
+          <img src="../assets/oocyte-quality-ui.png" alt="Oocyte quality analysis interface with per-oocyte scores">
+          <figcaption class="image-caption">OOCYTE QUALITY ANALYSIS — Per-oocyte scoring with blastulation predictions</figcaption>
+        </figure>
+      </section>
+
+      <section class="content-section card" aria-labelledby="workflow-heading">
+        <div class="card-header" id="workflow-heading">THE CLINICAL WORKFLOW</div>
+        <div class="card-body">
+          <div class="workflow-flow">
+            <div class="workflow-step">
+              <div class="workflow-step-title">PRE-TREATMENT</div>
+              <p class="workflow-step-text">Calculator generates personalized cycle predictions from age, AMH, BMI, and health factors. Multi-cycle cumulative probabilities support informed consent.</p>
+            </div>
+            <div class="workflow-step">
+              <div class="workflow-step-title">DURING TREATMENT</div>
+              <p class="workflow-step-text">Bonna provides objective implantation scores for each embryo alongside embryologist assessment. Confidence scores flag when to trust vs investigate further.</p>
+            </div>
+            <div class="workflow-step">
+              <div class="workflow-step-title">POST-ANALYSIS</div>
+              <p class="workflow-step-text">Cycle-level live birth probability computed across all embryos. Results delivered via real-time WebSocket to the clinic dashboard.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="content-section stat-grid" aria-label="Integration metrics">
+        <div class="stat-card">
+          <div class="stat-value stage-rose">5,141</div>
+          <div class="stat-label">Embryos validated</div>
+          <div class="stat-sub">Multi-center, 4 countries</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value stage-rose">6</div>
+          <div class="stat-label">AI tools integrated</div>
+          <div class="stat-sub">Egg calc, oocyte, embryo, hormonal, implantation, sperm</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value stage-rose">2020→2024</div>
+          <div class="stat-label">4 years of research</div>
+          <div class="stat-sub">MIDL → ESHRE → Human Reproduction → Springer</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value stage-rose">0.754</div>
+          <div class="stat-label">State-of-the-art AUC</div>
+          <div class="stat-sub">Highest reported on honest KID benchmark</div>
+        </div>
+      </section>
+
+      <aside class="content-section insight-box stage-7" aria-label="Product philosophy">
+        <p class="insight-title">THE PHILOSOPHY</p>
+        <p>Bonna is not a replacement for the embryologist. It&rsquo;s a calibrated second opinion that never gets tired, never suffers from value normalization bias, and processes each embryo independently of the others in the cohort. When human expertise meets algorithmic objectivity, patients get the best of both.</p>
+      </aside>
+
+      <section class="content-section card" aria-labelledby="pub-heading">
+        <div class="card-header" id="pub-heading">PEER-REVIEWED FOUNDATION</div>
+        <div class="card-body">
+          <ul class="pub-list">
+            <li class="pub-item">
+              <span class="pub-badge" style="background:#7DD3FC;">MIDL 2020</span>
+              <div class="pub-title">Data-Driven Prediction of Embryo Implantation Probability Using IVF Time-lapse Imaging</div>
+              <p class="pub-details">Silver DH et al. AUC 0.82, PPV 93%</p>
+            </li>
+            <li class="pub-item">
+              <span class="pub-badge" style="background:#9B7DFF;">ESHRE 2020</span>
+              <div class="pub-title">Deep Learning Model for Improving Embryo Selection and Deselection</div>
+              <p class="pub-details">Polsky A, Silver DH et al. 83.8% overall accuracy</p>
+            </li>
+            <li class="pub-item">
+              <span class="pub-badge" style="background:#4ADE80;">Human Reproduction 2022</span>
+              <div class="pub-title">Embryologist Agreement When Assessing Blastocyst Implantation Probability</div>
+              <p class="pub-details">Fordham DE, Silver DH et al. AI outperformed all 36 embryologists</p>
+            </li>
+            <li class="pub-item">
+              <span class="pub-badge" style="background:#FF6B8A;">Springer 2024</span>
+              <div class="pub-title">Enhancing Predictive Accuracy in Embryo Implantation: The Bonna Algorithm</div>
+              <p class="pub-details">Rave G, Silver DH et al. AUC 0.754, state-of-the-art</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </div>
+
+    <footer class="journey-finale" aria-label="Rhea Labs">
+      <div class="journey-finale-mark" aria-hidden="true">◆</div>
+      <div class="journey-finale-brand">Rhea Labs</div>
+      <div class="journey-finale-url">rhea-fertility.com</div>
+    </footer>
+  </div>
+</body>
+</html>

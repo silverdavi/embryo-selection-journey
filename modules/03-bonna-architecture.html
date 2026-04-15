@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Journey Canvas — Stage 03: The Three-Branch Ensemble</title>
+  <link rel="stylesheet" href="../styles/global.css" />
+  <style>
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .module-03 .intro .label {
+      color: #9b7dff;
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.2s forwards;
+    }
+
+    .module-03 .intro h1 {
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.35s forwards;
+    }
+
+    .module-03 .intro p {
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.5s forwards;
+    }
+
+    .module-03 .content {
+      animation: none;
+      opacity: 1;
+    }
+
+    .module-03 .content > * {
+      opacity: 0;
+      animation: fadeUp 0.75s var(--ease-out-expo) forwards;
+    }
+
+    .module-03 .content > *:nth-child(1) { animation-delay: 0.65s; }
+    .module-03 .content > *:nth-child(2) { animation-delay: 1s; }
+
+    .module-03 .teaser {
+      animation: fadeUp 0.8s var(--ease-out-expo) 1.35s forwards;
+    }
+
+    /* Architecture flow (HTML/CSS boxes + connectors) */
+    .bonna-flow {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0;
+      width: 100%;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+
+    .bf-vline {
+      width: 2px;
+      height: 18px;
+      background: rgba(255, 255, 255, 0.14);
+      margin: 0 auto;
+    }
+
+    .bf-hub {
+      position: relative;
+      width: 100%;
+      padding-top: 18px;
+      margin-top: 0;
+    }
+
+    .bf-hub::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 8%;
+      right: 8%;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .bf-branches {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      width: 100%;
+      align-items: stretch;
+    }
+
+    .bf-branch {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .bf-branch::before {
+      content: "";
+      position: absolute;
+      top: -18px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 18px;
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .bf-join-down {
+      width: 2px;
+      height: 22px;
+      background: rgba(255, 255, 255, 0.14);
+      margin: 0.5rem auto 0;
+    }
+
+    .bf-merge-legs {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      width: 100%;
+      margin-top: 0.35rem;
+    }
+
+    .bf-merge-legs .bf-leg {
+      display: flex;
+      justify-content: center;
+    }
+
+    .bf-merge-legs .bf-leg span {
+      display: block;
+      width: 2px;
+      height: 16px;
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .bf-merge-bar {
+      position: relative;
+      width: 72%;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.14);
+      margin: 0 auto;
+    }
+
+    .bf-merge-stem {
+      width: 2px;
+      height: 18px;
+      background: rgba(255, 255, 255, 0.14);
+      margin: 0 auto;
+    }
+
+    .bf-split-out {
+      display: flex;
+      gap: 1rem;
+      width: 100%;
+      max-width: 640px;
+      justify-content: center;
+      align-items: stretch;
+      margin-top: 0.35rem;
+    }
+
+    .bf-split-out .bf-branch {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .bf-split-out .bf-branch::before {
+      top: -18px;
+      height: 18px;
+    }
+
+    .bf-split-hub {
+      position: relative;
+      width: 100%;
+      padding-top: 18px;
+      margin-top: 0.25rem;
+    }
+
+    .bf-split-hub::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 18%;
+      right: 18%;
+      height: 2px;
+      background: rgba(255, 255, 255, 0.14);
+    }
+
+    .arch-card {
+      background: var(--bg-surface);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 8px;
+      border-left: 3px solid;
+      padding: 0.85rem 1rem;
+      width: 100%;
+      text-align: left;
+    }
+
+    .arch-card .ac-title {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.35;
+    }
+
+    .arch-card .ac-sub {
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+      margin-top: 0.2rem;
+      line-height: 1.4;
+    }
+
+    .arch-card .ac-detail {
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      margin-top: 0.35rem;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 720px) {
+      .bf-branches {
+        grid-template-columns: 1fr;
+      }
+
+      .bf-merge-legs {
+        grid-template-columns: 1fr;
+      }
+
+      .bf-merge-legs .bf-leg span {
+        height: 10px;
+      }
+
+      .bf-hub::before {
+        display: none;
+      }
+
+      .bf-branch::before {
+        display: none;
+      }
+
+      .bf-split-out {
+        flex-direction: column;
+      }
+
+      .bf-split-hub::before {
+        display: none;
+      }
+
+      .bf-split-out .bf-branch::before {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body style="overflow-y: auto; padding-bottom: 80px;">
+  <div class="module-container module-03">
+    <header class="intro">
+      <div class="label">STAGE 03</div>
+      <h1>The Three-Branch Ensemble</h1>
+      <p>
+        The Bonna algorithm fuses three deep learning approaches — each capturing different aspects of embryo morphology — into a single prediction through an 8-fold ensemble.
+      </p>
+    </header>
+
+    <main class="content">
+      <div class="bonna-flow" aria-label="Bonna three-branch architecture diagram">
+        <div class="arch-card" style="border-left-color: #9b7dff; max-width: 420px;">
+          <div class="ac-title">Blastocyst Image (Day 5, 500×500px)</div>
+        </div>
+
+        <div class="bf-vline" aria-hidden="true"></div>
+
+        <div class="bf-hub">
+          <div class="bf-branches">
+            <div class="bf-branch">
+              <div class="arch-card" style="border-left-color: #7dd3fc;">
+                <div class="ac-title">MobileNetV2</div>
+                <div class="ac-sub">Pixel &amp; Context Embedding</div>
+                <div class="ac-detail">Textures, edges, local features</div>
+              </div>
+            </div>
+            <div class="bf-branch">
+              <div class="arch-card" style="border-left-color: #4ade80;">
+                <div class="ac-title">DoodleP2P → Encoder</div>
+                <div class="ac-sub">Biological Segmentation</div>
+                <div class="ac-detail">Zona pellucida, cavity, cells</div>
+              </div>
+            </div>
+            <div class="bf-branch">
+              <div class="arch-card" style="border-left-color: #fbbf24;">
+                <div class="ac-title">Vision Transformer</div>
+                <div class="ac-sub">Global Pattern Recognition</div>
+                <div class="ac-detail">Spatial relationships, morphology</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="bf-merge-legs" aria-hidden="true">
+          <div class="bf-leg"><span></span></div>
+          <div class="bf-leg"><span></span></div>
+          <div class="bf-leg"><span></span></div>
+        </div>
+        <div class="bf-merge-bar" aria-hidden="true"></div>
+        <div class="bf-merge-stem" aria-hidden="true"></div>
+
+        <div class="arch-card" style="border-left-color: var(--text-muted); max-width: 380px; margin-top: 0.15rem;">
+          <div class="ac-title">Feature Concatenation</div>
+        </div>
+
+        <div class="bf-vline" aria-hidden="true"></div>
+
+        <div class="arch-card" style="border-left-color: #9b7dff; max-width: 420px;">
+          <div class="ac-title">BonnaMLP (×8 folds)</div>
+          <div class="ac-sub">Cross-entropy classification</div>
+        </div>
+
+        <div class="bf-vline" aria-hidden="true"></div>
+
+        <div class="bf-split-hub">
+          <div class="bf-split-out">
+            <div class="bf-branch">
+              <div class="arch-card" style="border-left-color: #4ade80;">
+                <div class="ac-title">p_implantation</div>
+                <div class="ac-sub">Mean probability</div>
+              </div>
+            </div>
+            <div class="bf-branch">
+              <div class="arch-card" style="border-left-color: #fbbf24;">
+                <div class="ac-title">Confidence</div>
+                <div class="ac-sub">-log(STD) of 256 passes</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <article class="card" style="margin-top: 2rem;">
+        <div class="card-header">INFERENCE-TIME AUGMENTATION</div>
+        <div class="card-body">
+          <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.7; margin: 0;">
+            Each image undergoes 16 random augmentations × 16 dropout simulations = 256 forward passes per embryo. This Monte Carlo approach produces a score distribution whose standard deviation quantifies prediction uncertainty — enabling clinically meaningful confidence reporting.
+          </p>
+        </div>
+      </article>
+    </main>
+
+    <p class="teaser">
+      Architecture defined. How does it actually perform against every competing model?
+      <span style="color: #4ade80;">→</span>
+    </p>
+  </div>
+</body>
+</html>

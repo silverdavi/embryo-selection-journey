@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Journey Canvas — Stage 01: The Subjective Eye</title>
+  <link rel="stylesheet" href="../styles/global.css" />
+  <style>
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .module-01 .intro .label {
+      color: #ff6b8a;
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.2s forwards;
+    }
+
+    .module-01 .intro h1 {
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.35s forwards;
+    }
+
+    .module-01 .intro p {
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.5s forwards;
+    }
+
+    .module-01 .content {
+      animation: none;
+      opacity: 1;
+    }
+
+    .module-01 .content > * {
+      opacity: 0;
+      animation: fadeUp 0.75s var(--ease-out-expo) forwards;
+    }
+
+    .module-01 .content > *:nth-child(1) { animation-delay: 0.65s; }
+    .module-01 .content > *:nth-child(2) { animation-delay: 0.85s; }
+    .module-01 .content > *:nth-child(3) { animation-delay: 1.05s; }
+
+    .module-01 .teaser {
+      animation: fadeUp 0.8s var(--ease-out-expo) 1.35s forwards;
+    }
+
+    .module-01 .insight-box {
+      border-left-color: #ff6b8a;
+    }
+
+    .module-01 .insight-cite {
+      display: block;
+      margin-top: 0.75rem;
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      font-style: italic;
+    }
+
+    .running-example {
+      width: 100%;
+      max-width: 1100px;
+      margin-bottom: 2rem;
+      background: var(--bg-surface);
+      border: 1px solid rgba(155, 125, 255, 0.2);
+      border-radius: 8px;
+      overflow: hidden;
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease-out-expo) 0.55s forwards;
+    }
+    .re-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.8rem 1rem;
+      background: var(--bg-elevated);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .re-thumb {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(155, 125, 255, 0.3);
+    }
+    .re-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 0.15rem;
+    }
+    .re-badge {
+      font-family: var(--font-mono);
+      font-size: 0.5rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #9B7DFF;
+    }
+    .re-id {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-primary);
+    }
+    .re-patient {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      color: var(--text-muted);
+    }
+    .re-body {
+      padding: 1rem 1.2rem;
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+      line-height: 1.65;
+    }
+    .re-body strong { color: var(--text-primary); font-weight: 600; }
+    .re-body code {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      background: var(--bg-elevated);
+      padding: 0.1rem 0.35rem;
+      border-radius: 3px;
+    }
+  </style>
+</head>
+<body style="overflow-y: auto; padding-bottom: 80px;">
+  <div class="module-container module-01">
+    <header class="intro">
+      <div class="label">STAGE 01</div>
+      <h1>The Subjective Eye</h1>
+      <p>
+        Embryo selection is the single most impactful decision in IVF — yet it's done by eye, and embryologists disagree 50% of the time on borderline cases.
+      </p>
+    </header>
+
+    <main class="content">
+      <div class="stat-grid">
+        <div class="stat-card">
+          <div class="stat-value">51.9%</div>
+          <div class="stat-label">Average embryologist accuracy</div>
+          <div class="stat-sub">across 136 blastocysts</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">κ = 0.25</div>
+          <div class="stat-label">Agreement on fair-quality embryos</div>
+          <div class="stat-sub">Fleiss kappa, 36 embryologists</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value">75.6%</div>
+          <div class="stat-label">Predicted to implant</div>
+          <div class="stat-sub">vs 47.7% actual rate — systematic overestimation</div>
+        </div>
+      </div>
+
+      <aside class="insight-box">
+        <div class="insight-title">THE CORE CHALLENGE</div>
+        <p>
+          No embryologist characteristic — years of experience, country, degree, or grading system — significantly predicted accuracy. The subjectivity is inherent in visual assessment itself.
+        </p>
+        <span class="insight-cite">— Fordham et al., Human Reproduction, 2022</span>
+      </aside>
+
+      <article class="card">
+        <div class="card-header">WHAT THE DATA SHOWS</div>
+        <div class="card-body">
+          <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem;">
+            A panel of 36 embryologists from 13 countries assessed 136 blastocyst time-lapse videos with known implantation outcomes. Each embryo received an implantation probability grade from 1 (very low) to 5 (very high).
+          </p>
+          <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 0;">
+            Embryologists showed good agreement on clearly good or poor embryos (κ = 0.65), but only fair agreement on borderline &ldquo;fair quality&rdquo; embryos (κ = 0.25). This is exactly the cohort where selection matters most — and where AI can add the greatest value.
+          </p>
+        </div>
+      </article>
+    </main>
+
+    <p class="teaser">
+      If manual grading is inherently subjective, what would objective analysis look like?
+      <span style="color: #7dd3fc;">→</span>
+    </p>
+  </div>
+</body>
+</html>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Stage 05 — When the Model Knows It Knows</title>
+  <link rel="stylesheet" href="../styles/global.css">
+  <style>
+    body {
+      overflow-y: auto;
+      padding-bottom: 80px;
+    }
+
+    .content {
+      opacity: 1;
+      animation: none;
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .content-section {
+      opacity: 0;
+      animation: fadeUp 0.8s var(--ease-out-expo) forwards;
+    }
+    .content-section:nth-child(1) { animation-delay: 0.85s; }
+    .content-section:nth-child(2) { animation-delay: 1s; }
+    .content-section:nth-child(3) { animation-delay: 1.15s; }
+    .content-section:nth-child(4) { animation-delay: 1.3s; }
+
+    .teaser {
+      animation-delay: 1.5s;
+    }
+
+    .stage-accent { color: #FBBF24; }
+    .stat-value.stage-accent { color: #FBBF24; }
+
+    .steps {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25rem;
+    }
+    .step-row {
+      display: flex;
+      gap: 1rem;
+      align-items: flex-start;
+    }
+    .step-num {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 2px solid #FBBF24;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #FBBF24;
+    }
+    .step-body {
+      flex: 1;
+      min-width: 0;
+    }
+    .step-title {
+      font-family: var(--font-mono);
+      font-size: 0.6rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #FBBF24;
+      margin-bottom: 0.35rem;
+    }
+    .step-desc {
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+
+    .insight-box.stage-5 {
+      border-left-color: #FBBF24;
+    }
+
+    .teaser-cyan {
+      color: #22D3EE;
+    }
+
+    .auc-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+    .auc-bar-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .auc-bar-label {
+      flex: 0 0 7.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+    }
+    .auc-bar-track {
+      flex: 1;
+      min-width: 0;
+      position: relative;
+      height: 32px;
+      background: var(--bg-elevated);
+      border-radius: 4px;
+      overflow: hidden;
+    }
+    .auc-bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      background: linear-gradient(90deg, rgba(251, 191, 36, 0.3), rgba(251, 191, 36, 0.7));
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      padding-right: 0.5rem;
+      min-width: 2.5rem;
+      box-sizing: border-box;
+    }
+    .auc-bar-value {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="module-container">
+    <header class="intro">
+      <p class="label stage-accent">STAGE 05</p>
+      <h1>When the Model Knows It Knows</h1>
+      <p>The Bonna algorithm doesn't just predict — it reports how certain it is. When confidence is high, AUC reaches 0.9.</p>
+    </header>
+
+    <div class="content">
+      <section class="content-section stat-grid" aria-label="Confidence statistics">
+        <div class="stat-card">
+          <div class="stat-value stage-accent">0.9</div>
+          <div class="stat-label">Peak AUC</div>
+          <div class="stat-sub">At 10th confidence percentile</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value stage-accent">256</div>
+          <div class="stat-label">Passes per embryo</div>
+          <div class="stat-sub">16 augmentations × 16 dropout</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value stage-accent">-log(σ)</div>
+          <div class="stat-label">Confidence metric</div>
+          <div class="stat-sub">Higher = more certain</div>
+        </div>
+      </section>
+
+      <section class="content-section card" aria-labelledby="how-heading">
+        <div class="card-header" id="how-heading">HOW CONFIDENCE SCORING WORKS</div>
+        <div class="card-body">
+          <div class="steps">
+            <div class="step-row">
+              <span class="step-num" aria-hidden="true">1</span>
+              <div class="step-body">
+                <div class="step-title">Augmentation</div>
+                <p class="step-desc">Each embryo image undergoes 16 random transformations (rotation, translation, scaling, flips) to test prediction stability across orientations.</p>
+              </div>
+            </div>
+            <div class="step-row">
+              <span class="step-num" aria-hidden="true">2</span>
+              <div class="step-body">
+                <div class="step-title">Dropout simulation</div>
+                <p class="step-desc">For each augmented image, 16 dropout passes randomly omit subsets of neurons, simulating an ensemble of 256 different models evaluating the same embryo.</p>
+              </div>
+            </div>
+            <div class="step-row">
+              <span class="step-num" aria-hidden="true">3</span>
+              <div class="step-body">
+                <div class="step-title">Confidence quantification</div>
+                <p class="step-desc">The standard deviation of the resulting 256 scores measures prediction stability. -log(STD) converts this to a confidence score where higher values mean greater certainty.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <aside class="content-section insight-box stage-5" aria-label="Clinical implications">
+        <p class="insight-title">CLINICAL IMPLICATIONS</p>
+        <p>This isn't academic nuance — it's decision support. When Bonna reports high confidence, AUC approaches 0.9 (near-diagnostic accuracy). When confidence is low, the clinician knows to weigh other factors more heavily. The model becomes a calibrated collaborator, not a black-box oracle.</p>
+      </aside>
+
+      <section class="content-section card" aria-labelledby="perf-heading">
+        <div class="card-header" id="perf-heading">CONFIDENCE vs PERFORMANCE</div>
+        <div class="card-body">
+          <div class="auc-bars">
+            <div class="auc-bar-row">
+              <span class="auc-bar-label">All embryos</span>
+              <div class="auc-bar-track">
+                <div class="auc-bar-fill" style="width: 75.4%;"><span class="auc-bar-value">0.754</span></div>
+              </div>
+            </div>
+            <div class="auc-bar-row">
+              <span class="auc-bar-label">Top 75%</span>
+              <div class="auc-bar-track">
+                <div class="auc-bar-fill" style="width: 78%;"><span class="auc-bar-value">0.78</span></div>
+              </div>
+            </div>
+            <div class="auc-bar-row">
+              <span class="auc-bar-label">Top 50%</span>
+              <div class="auc-bar-track">
+                <div class="auc-bar-fill" style="width: 82%;"><span class="auc-bar-value">0.82</span></div>
+              </div>
+            </div>
+            <div class="auc-bar-row">
+              <span class="auc-bar-label">Top 25%</span>
+              <div class="auc-bar-track">
+                <div class="auc-bar-fill" style="width: 87%;"><span class="auc-bar-value">0.87</span></div>
+              </div>
+            </div>
+            <div class="auc-bar-row">
+              <span class="auc-bar-label">Top 10%</span>
+              <div class="auc-bar-track">
+                <div class="auc-bar-fill" style="width: 90%;"><span class="auc-bar-value">0.90</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <p class="teaser"><span class="teaser-cyan">Confidence-aware prediction is ready. How does it run at scale in production? →</span></p>
+  </div>
+</body>
+</html>
