@@ -52,7 +52,7 @@
 }
 
 html {
-  font-size: 18px;
+  font-size: 21px;
 }
 
 *, *::before, *::after {
@@ -98,13 +98,13 @@ body::before {
 
 .intro {
   text-align: center;
-  max-width: 720px;
+  max-width: 800px;
   margin-bottom: 3rem;
 }
 
 .label {
   font-family: var(--font-mono);
-  font-size: 0.65rem;
+  font-size: 0.7rem;
   font-weight: 500;
   letter-spacing: 0.15em;
   text-transform: uppercase;
@@ -115,7 +115,7 @@ body::before {
 
 .intro h1 {
   font-family: var(--font-display);
-  font-size: 2.2rem;
+  font-size: 2.6rem;
   font-weight: 800;
   letter-spacing: -0.02em;
   margin-bottom: 1rem;
@@ -124,7 +124,7 @@ body::before {
 }
 
 .intro p {
-  font-size: 0.88rem;
+  font-size: 0.95rem;
   color: var(--text-secondary);
   line-height: 1.7;
   opacity: 0;
@@ -146,18 +146,18 @@ body::before {
 }
 
 .card-header {
-  padding: 0.65rem 0.85rem;
+  padding: 0.7rem 1rem;
   background: var(--bg-elevated);
   border-bottom: 1px solid rgba(255, 255, 255, 0.04);
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: 0.65rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--text-secondary);
 }
 
 .card-body {
-  padding: 1.2rem 1.4rem;
+  padding: 1.3rem 1.5rem;
 }
 
 .stat-grid {
@@ -176,19 +176,19 @@ body::before {
 
 .stat-value {
   font-family: var(--font-mono);
-  font-size: 1.8rem;
+  font-size: 2rem;
   font-weight: 700;
   margin-bottom: 0.3rem;
 }
 
 .stat-label {
-  font-size: 0.72rem;
+  font-size: 0.8rem;
   color: var(--text-secondary);
 }
 
 .stat-sub {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: 0.65rem;
   color: var(--text-muted);
   margin-top: 0.2rem;
 }
@@ -211,10 +211,10 @@ body::before {
 
 .image-caption {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: 0.65rem;
   color: var(--text-muted);
   text-align: center;
-  padding: 0.6rem 0.8rem;
+  padding: 0.65rem 0.9rem;
   background: var(--bg-elevated);
   letter-spacing: 0.04em;
 }
@@ -222,7 +222,7 @@ body::before {
 .teaser {
   margin-top: 3rem;
   text-align: center;
-  font-size: 0.82rem;
+  font-size: 0.88rem;
   color: var(--text-muted);
   opacity: 0;
   animation: fadeUp 0.8s var(--ease-out-expo) 1.6s forwards;
@@ -248,14 +248,14 @@ body::before {
 }
 
 .insight-box p {
-  font-size: 0.82rem;
+  font-size: 0.88rem;
   color: var(--text-secondary);
-  line-height: 1.6;
+  line-height: 1.65;
 }
 
 .insight-box .insight-title {
   font-family: var(--font-mono);
-  font-size: 0.6rem;
+  font-size: 0.65rem;
   font-weight: 600;
   letter-spacing: 0.1em;
   text-transform: uppercase;

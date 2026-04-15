@@ -16,7 +16,7 @@
       animation: none;
       display: flex;
       flex-direction: column;
-      gap: 2rem;
+      gap: 2.5rem;
     }
 
     .content-section {
@@ -24,129 +24,244 @@
       animation: fadeUp 0.8s var(--ease-out-expo) forwards;
     }
     .content-section:nth-child(1) { animation-delay: 0.85s; }
-    .content-section:nth-child(2) { animation-delay: 1s; }
+    .content-section:nth-child(2) { animation-delay: 1.0s; }
     .content-section:nth-child(3) { animation-delay: 1.15s; }
     .content-section:nth-child(4) { animation-delay: 1.3s; }
     .content-section:nth-child(5) { animation-delay: 1.45s; }
     .content-section:nth-child(6) { animation-delay: 1.6s; }
     .content-section:nth-child(7) { animation-delay: 1.75s; }
+    .content-section:nth-child(8) { animation-delay: 1.9s; }
+    .content-section:nth-child(9) { animation-delay: 2.05s; }
 
     .stage-rose { color: #F472B6; }
     .stat-value.stage-rose { color: #F472B6; }
 
-    .split {
+    /* ── Hero image — full width with dark border treatment ── */
+    .hero-image {
+      width: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(244, 114, 182, 0.15);
+      box-shadow: 0 4px 40px rgba(0,0,0,0.5), 0 0 60px rgba(244, 114, 182, 0.06);
+    }
+    .hero-image img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .hero-image figcaption {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-align: center;
+      padding: 0.75rem 1rem;
+      background: var(--bg-elevated);
+      letter-spacing: 0.04em;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+
+    /* ── Dark-treated screenshots for light-bg images ── */
+    .screenshot-grid {
+      display: grid;
       grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      align-items: start;
     }
     @media (max-width: 768px) {
-      .split {
-        grid-template-columns: 1fr;
-      }
+      .screenshot-grid { grid-template-columns: 1fr; }
+    }
+    .screenshot-frame {
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(244, 114, 182, 0.12);
+      box-shadow: 0 2px 24px rgba(0,0,0,0.4);
+      background: var(--bg-surface);
+    }
+    .screenshot-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 8px 8px 0 0;
+    }
+    .screenshot-frame figcaption {
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      color: var(--text-muted);
+      padding: 0.7rem 1rem;
+      background: var(--bg-elevated);
+      letter-spacing: 0.04em;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+    .screenshot-frame figcaption strong {
+      color: var(--text-secondary);
     }
 
+    /* ── Workflow steps — horizontal cards ── */
     .workflow-flow {
-      display: flex;
-      flex-direction: row;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
       gap: 1rem;
-      flex-wrap: wrap;
     }
-
+    @media (max-width: 768px) {
+      .workflow-flow { grid-template-columns: 1fr; }
+    }
     .workflow-step {
-      flex: 1 1 200px;
-      min-width: 0;
       background: var(--bg-surface);
       border-radius: 8px;
-      padding: 1rem 1.1rem;
+      padding: 1.2rem;
       border: 1px solid rgba(255, 255, 255, 0.05);
       border-top: 3px solid #F472B6;
+      position: relative;
     }
-
+    .workflow-step-num {
+      font-family: var(--font-mono);
+      font-size: 2rem;
+      font-weight: 800;
+      color: rgba(244, 114, 182, 0.12);
+      position: absolute;
+      top: 0.5rem;
+      right: 0.8rem;
+    }
     .workflow-step-title {
       font-family: var(--font-mono);
-      font-size: 0.6rem;
+      font-size: 0.68rem;
       font-weight: 600;
       letter-spacing: 0.08em;
       text-transform: uppercase;
-      color: var(--text-primary);
-      margin-bottom: 0.5rem;
+      color: #F472B6;
+      margin-bottom: 0.6rem;
     }
-
     .workflow-step-text {
-      font-size: 0.78rem;
+      font-size: 0.85rem;
       color: var(--text-secondary);
-      line-height: 1.6;
+      line-height: 1.65;
+    }
+    .workflow-step-tools {
+      margin-top: 0.75rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+    .tool-chip {
+      font-family: var(--font-mono);
+      font-size: 0.58rem;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      background: var(--bg-elevated);
+      border: 1px solid rgba(155, 125, 255, 0.15);
+      color: var(--accent);
     }
 
+    /* ── Insight box stage 7 ── */
     .insight-box.stage-7 {
       border-left-color: #F472B6;
     }
 
+    /* ── Publications list ── */
     .pub-list {
       list-style: none;
       margin: 0;
       padding: 0;
       display: flex;
       flex-direction: column;
-      gap: 1.1rem;
+      gap: 1.25rem;
     }
-
     .pub-item {
       display: flex;
-      flex-direction: column;
-      gap: 0.35rem;
+      gap: 1rem;
+      align-items: flex-start;
     }
-
     .pub-badge {
-      display: inline-block;
-      align-self: flex-start;
+      flex-shrink: 0;
       font-family: var(--font-mono);
       font-size: 0.58rem;
-      font-weight: 600;
+      font-weight: 700;
       letter-spacing: 0.04em;
-      padding: 0.25rem 0.5rem;
+      padding: 0.25rem 0.55rem;
       border-radius: 4px;
       color: var(--bg-deep);
+      white-space: nowrap;
+      margin-top: 0.15rem;
     }
-
+    .pub-info {
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
     .pub-title {
-      font-size: 0.82rem;
+      font-size: 0.88rem;
       font-weight: 600;
       line-height: 1.45;
+      color: var(--text-primary);
     }
-
     .pub-details {
-      font-size: 0.72rem;
+      font-size: 0.78rem;
       color: var(--text-secondary);
       line-height: 1.5;
     }
+    .pub-metric {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: #F472B6;
+      font-weight: 500;
+    }
 
+    /* ── Competitive landscape table ── */
+    .landscape-frame {
+      width: 100%;
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid rgba(244, 114, 182, 0.12);
+      box-shadow: 0 2px 24px rgba(0,0,0,0.4);
+    }
+    .landscape-frame img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .landscape-frame figcaption {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--text-muted);
+      text-align: center;
+      padding: 0.75rem 1rem;
+      background: var(--bg-elevated);
+      letter-spacing: 0.04em;
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+
+    /* ── Journey finale ── */
     .journey-finale {
       margin-top: 3rem;
       text-align: center;
       opacity: 0;
-      animation: fadeUp 0.8s var(--ease-out-expo) 1.9s forwards;
+      animation: fadeUp 0.8s var(--ease-out-expo) 2.2s forwards;
     }
-
     .journey-finale-mark {
-      font-size: 2rem;
+      font-size: 2.5rem;
       line-height: 1;
       color: #9B7DFF;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.6rem;
     }
-
     .journey-finale-brand {
       font-family: var(--font-display);
-      font-size: 1.2rem;
+      font-size: 1.4rem;
       font-weight: 600;
       color: var(--text-primary);
       margin-bottom: 0.35rem;
     }
-
+    .journey-finale-tagline {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.5rem;
+    }
     .journey-finale-url {
       font-family: var(--font-mono);
-      font-size: 0.65rem;
+      font-size: 0.7rem;
       color: var(--text-muted);
     }
 
+    /* ── Running example ── */
     .running-example {
       width: 100%;
       max-width: 1100px;
@@ -167,8 +282,8 @@
       border-bottom: 1px solid rgba(255,255,255,0.04);
     }
     .re-thumb {
-      width: 48px;
-      height: 48px;
+      width: 52px;
+      height: 52px;
       border-radius: 50%;
       object-fit: cover;
       border: 2px solid rgba(155, 125, 255, 0.3);
@@ -180,46 +295,51 @@
     }
     .re-badge {
       font-family: var(--font-mono);
-      font-size: 0.5rem;
+      font-size: 0.55rem;
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
       color: #9B7DFF;
     }
     .re-id {
-      font-size: 0.78rem;
+      font-size: 0.85rem;
       font-weight: 600;
       color: var(--text-primary);
     }
     .re-patient {
       font-family: var(--font-mono);
-      font-size: 0.6rem;
+      font-size: 0.65rem;
       color: var(--text-muted);
     }
     .re-body {
-      padding: 1rem 1.2rem;
-      font-size: 0.78rem;
+      padding: 1.1rem 1.3rem;
+      font-size: 0.85rem;
       color: var(--text-secondary);
       line-height: 1.65;
     }
     .re-body strong { color: var(--text-primary); font-weight: 600; }
     .re-body code {
       font-family: var(--font-mono);
-      font-size: 0.7rem;
+      font-size: 0.75rem;
       background: var(--bg-elevated);
       padding: 0.1rem 0.35rem;
       border-radius: 3px;
     }
+    .re-outcome {
+      margin-top: 0.75rem;
+      padding: 0.8rem 1rem;
+      background: rgba(74, 222, 128, 0.06);
+      border: 1px solid rgba(74, 222, 128, 0.15);
+      border-radius: 6px;
+      font-size: 0.85rem;
+      color: #4ADE80;
+      font-weight: 600;
+      text-align: center;
+    }
 
     @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
@@ -228,55 +348,83 @@
     <header class="intro">
       <p class="label stage-rose">STAGE 07</p>
       <h1>Embryologist + Algorithm</h1>
-      <p>Bonna integrates into GenPrime&rsquo;s clinical workflow as a decision-support tool — complementing embryologist expertise with objective, calibrated predictions.</p>
+      <p>Bonna doesn&rsquo;t replace the embryologist — it gives them a calibrated second opinion backed by 5,141 embryos, 4 peer-reviewed publications, and an ensemble of neural networks that never gets tired.</p>
     </header>
 
     <div class="running-example">
       <div class="re-header">
         <img src="../assets/embryo-timelapse.gif" alt="Embryo #47" class="re-thumb">
         <div class="re-meta">
-          <span class="re-badge">RUNNING EXAMPLE</span>
+          <span class="re-badge">RUNNING EXAMPLE — FINALE</span>
           <span class="re-id">Embryo #47 — Day 5 Blastocyst</span>
           <span class="re-patient">Patient: 34yo, AMH 2.1 ng/mL, BMI 24.2</span>
         </div>
       </div>
       <div class="re-body">
-        <p><strong>Embryo #47</strong> appears on the clinic dashboard ranked <strong>#2 of 7</strong> in the cycle, with <code>p_implantation = 72%</code> and a high confidence badge. The embryologist reviews the score alongside their own Gardner BB assessment. They select #47 for transfer, supported by Bonna's objective analysis. <strong>Result: positive fetal heartbeat at 7 weeks, confirmed ongoing pregnancy at 12 weeks.</strong> The AI didn't replace the embryologist — it gave them the confidence to trust their instinct on a borderline call.</p>
+        <p><strong>Embryo #47</strong> appears on the clinic dashboard ranked <strong>#2 of 7</strong> in the cycle. The Bonna report shows <code>p_implantation = 72%</code>, confidence score <code>3.04</code> (high), and <code>p_aneuploidy = 22%</code> (age-adjusted). The embryologist reviews these scores alongside their own Gardner BB morphological assessment. They had been torn on whether to transfer #47 or #3 — both looked similar under the microscope. Bonna&rsquo;s objective analysis tips the balance. <strong>#47 is selected for transfer.</strong></p>
+        <div class="re-outcome">Positive fetal heartbeat at 7 weeks &bull; Confirmed ongoing pregnancy at 12 weeks &bull; Healthy delivery at 39 weeks</div>
       </div>
     </div>
 
     <div class="content">
-      <section class="content-section split" aria-label="Clinical dashboards">
-        <figure class="image-frame">
-          <img src="../assets/rhea-dashboard.png" alt="GenPrime dashboard showing Rhea fertility tools">
-          <figcaption class="image-caption">GENPRIME DASHBOARD — Rhea&rsquo;s suite of AI-powered fertility tools</figcaption>
+
+      <!-- IVF Journey Flow — where Rhea's tools integrate -->
+      <figure class="content-section hero-image" aria-label="IVF treatment journey">
+        <img src="../assets/ivf-journey-flow.png" alt="Complete IVF treatment journey showing where each Rhea AI tool integrates">
+        <figcaption>THE COMPLETE IVF JOURNEY — Each Rhea AI tool maps to a specific clinical decision point, from initial consultation through pregnancy test</figcaption>
+      </figure>
+
+      <!-- Dashboard screenshots with dark treatment -->
+      <section class="content-section screenshot-grid" aria-label="Clinical dashboards">
+        <figure class="screenshot-frame">
+          <img src="../assets/rhea-dashboard.png" alt="GenPrime dashboard showing all 6 Rhea AI tools">
+          <figcaption><strong>GENPRIME DASHBOARD</strong> — Six AI tools integrated into a single clinical interface: Egg Freezing Calculator, Hormonal Protocol, Implantation Window, Oocyte Quality, Embryo Quality, and Sperm Analysis</figcaption>
         </figure>
-        <figure class="image-frame">
-          <img src="../assets/oocyte-quality-ui.png" alt="Oocyte quality analysis interface with per-oocyte scores">
-          <figcaption class="image-caption">OOCYTE QUALITY ANALYSIS — Per-oocyte scoring with blastulation predictions</figcaption>
+        <figure class="screenshot-frame">
+          <img src="../assets/oocyte-quality-ui.png" alt="Per-oocyte scoring with quality distribution and blastulation predictions">
+          <figcaption><strong>OOCYTE QUALITY ASSESSMENT</strong> — Per-oocyte scoring (ViT model) with quality distribution histogram and predicted fertilization/blastulation rates for each individual oocyte</figcaption>
         </figure>
       </section>
 
+      <!-- Clinical workflow — 3-phase -->
       <section class="content-section card" aria-labelledby="workflow-heading">
         <div class="card-header" id="workflow-heading">THE CLINICAL WORKFLOW</div>
         <div class="card-body">
           <div class="workflow-flow">
             <div class="workflow-step">
-              <div class="workflow-step-title">PRE-TREATMENT</div>
-              <p class="workflow-step-text">Calculator generates personalized cycle predictions from age, AMH, BMI, and health factors. Multi-cycle cumulative probabilities support informed consent.</p>
+              <span class="workflow-step-num">01</span>
+              <div class="workflow-step-title">PRE-TREATMENT COUNSELING</div>
+              <p class="workflow-step-text">Before the cycle begins, the <strong>Egg Freezing Calculator</strong> generates personalized predictions from age, AMH, and health factors. Patients see multi-cycle cumulative probabilities for oocyte yield and live birth — enabling truly informed consent.</p>
+              <div class="workflow-step-tools">
+                <span class="tool-chip">Egg Freezing Calculator</span>
+                <span class="tool-chip">Hormonal Protocol</span>
+              </div>
             </div>
             <div class="workflow-step">
+              <span class="workflow-step-num">02</span>
               <div class="workflow-step-title">DURING TREATMENT</div>
-              <p class="workflow-step-text">Bonna provides objective implantation scores for each embryo alongside embryologist assessment. Confidence scores flag when to trust vs investigate further.</p>
+              <p class="workflow-step-text">After retrieval, the <strong>Oocyte Quality</strong> model (ViT) scores each egg. During culture, the <strong>Bonna algorithm</strong> evaluates every embryo. Confidence scores flag which predictions are clinically actionable vs. which need human judgment.</p>
+              <div class="workflow-step-tools">
+                <span class="tool-chip">Oocyte Quality (ViT)</span>
+                <span class="tool-chip">Embryo Quality (Bonna)</span>
+                <span class="tool-chip">Sperm Analysis</span>
+              </div>
             </div>
             <div class="workflow-step">
-              <div class="workflow-step-title">POST-ANALYSIS</div>
-              <p class="workflow-step-text">Cycle-level live birth probability computed across all embryos. Results delivered via real-time WebSocket to the clinic dashboard.</p>
+              <span class="workflow-step-num">03</span>
+              <div class="workflow-step-title">TRANSFER DECISION</div>
+              <p class="workflow-step-text">The cycle model aggregates all embryo scores into a <strong>live birth probability</strong> for the entire cohort. The <strong>Implantation Window</strong> tool pinpoints optimal transfer timing. Results arrive in real-time via WebSocket — no page refreshes, no waiting.</p>
+              <div class="workflow-step-tools">
+                <span class="tool-chip">Cycle Model (Lambda)</span>
+                <span class="tool-chip">Implantation Window</span>
+                <span class="tool-chip">WebSocket Notify</span>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
+      <!-- Integration metrics -->
       <section class="content-section stat-grid" aria-label="Integration metrics">
         <div class="stat-card">
           <div class="stat-value stage-rose">5,141</div>
@@ -285,58 +433,106 @@
         </div>
         <div class="stat-card">
           <div class="stat-value stage-rose">6</div>
-          <div class="stat-label">AI tools integrated</div>
+          <div class="stat-label">AI tools in production</div>
           <div class="stat-sub">Egg calc, oocyte, embryo, hormonal, implantation, sperm</div>
-        </div>
-        <div class="stat-card">
-          <div class="stat-value stage-rose">2020→2024</div>
-          <div class="stat-label">4 years of research</div>
-          <div class="stat-sub">MIDL → ESHRE → Human Reproduction → Springer</div>
         </div>
         <div class="stat-card">
           <div class="stat-value stage-rose">0.754</div>
           <div class="stat-label">State-of-the-art AUC</div>
-          <div class="stat-sub">Highest reported on honest KID benchmark</div>
+          <div class="stat-sub">Highest on honest KID benchmark</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-value stage-rose">&lt; 90s</div>
+          <div class="stat-label">End-to-end latency</div>
+          <div class="stat-sub">Upload → Score → Dashboard notification</div>
         </div>
       </section>
 
+      <!-- Philosophy -->
       <aside class="content-section insight-box stage-7" aria-label="Product philosophy">
         <p class="insight-title">THE PHILOSOPHY</p>
-        <p>Bonna is not a replacement for the embryologist. It&rsquo;s a calibrated second opinion that never gets tired, never suffers from value normalization bias, and processes each embryo independently of the others in the cohort. When human expertise meets algorithmic objectivity, patients get the best of both.</p>
+        <p>Bonna is not a replacement for the embryologist. It&rsquo;s a calibrated second opinion that never gets tired, never suffers from value normalization bias, and processes each embryo independently of the others in the cohort. It doesn&rsquo;t say &ldquo;transfer this one&rdquo; — it says &ldquo;here&rsquo;s the probability, here&rsquo;s how confident I am, here&rsquo;s the math.&rdquo; The embryologist makes the call. When human expertise meets algorithmic objectivity, patients get the best of both.</p>
       </aside>
 
+      <!-- Competitive landscape -->
+      <figure class="content-section landscape-frame" aria-label="Competitive landscape">
+        <img src="../assets/competitive-landscape.png" alt="Competitive landscape of AI embryo selection companies showing Rhea Labs with highest AUC">
+        <figcaption>COMPETITIVE LANDSCAPE — Rhea Labs achieves the highest reported AUC (0.754) on the honest KID benchmark among all publicly reporting companies</figcaption>
+      </figure>
+
+      <!-- Peer-reviewed publications -->
       <section class="content-section card" aria-labelledby="pub-heading">
         <div class="card-header" id="pub-heading">PEER-REVIEWED FOUNDATION</div>
         <div class="card-body">
           <ul class="pub-list">
             <li class="pub-item">
               <span class="pub-badge" style="background:#7DD3FC;">MIDL 2020</span>
-              <div class="pub-title">Data-Driven Prediction of Embryo Implantation Probability Using IVF Time-lapse Imaging</div>
-              <p class="pub-details">Silver DH et al. AUC 0.82, PPV 93%</p>
+              <div class="pub-info">
+                <div class="pub-title">Data-Driven Prediction of Embryo Implantation Probability Using IVF Time-lapse Imaging</div>
+                <p class="pub-details">Silver DH et al. &mdash; First application of deep learning to raw time-lapse video for implantation prediction. Introduced the MobileNetV2-based feature extractor that became the backbone of Bonna.</p>
+                <span class="pub-metric">AUC 0.82 &bull; PPV 93%</span>
+              </div>
             </li>
             <li class="pub-item">
               <span class="pub-badge" style="background:#9B7DFF;">ESHRE 2020</span>
-              <div class="pub-title">Deep Learning Model for Improving Embryo Selection and Deselection</div>
-              <p class="pub-details">Polsky A, Silver DH et al. 83.8% overall accuracy</p>
+              <div class="pub-info">
+                <div class="pub-title">Deep Learning Model for Improving Embryo Selection and Deselection</div>
+                <p class="pub-details">Polsky A, Silver DH et al. &mdash; Demonstrated that the AI model could both <em>select</em> high-quality embryos and <em>deselect</em> non-viable ones, reducing unnecessary transfers.</p>
+                <span class="pub-metric">83.8% overall accuracy</span>
+              </div>
             </li>
             <li class="pub-item">
-              <span class="pub-badge" style="background:#4ADE80;">Human Reproduction 2022</span>
-              <div class="pub-title">Embryologist Agreement When Assessing Blastocyst Implantation Probability</div>
-              <p class="pub-details">Fordham DE, Silver DH et al. AI outperformed all 36 embryologists</p>
+              <span class="pub-badge" style="background:#4ADE80;">Hum Reprod 2022</span>
+              <div class="pub-info">
+                <div class="pub-title">Embryologist Agreement When Assessing Blastocyst Implantation Probability</div>
+                <p class="pub-details">Fordham DE, Silver DH et al. &mdash; Landmark study: 36 embryologists from 13 countries assessed 136 blastocysts. The AI outperformed every single embryologist, establishing the subjectivity baseline that motivates Stage 01.</p>
+                <span class="pub-metric">AI outperformed all 36 embryologists</span>
+              </div>
             </li>
             <li class="pub-item">
               <span class="pub-badge" style="background:#FF6B8A;">Springer 2024</span>
-              <div class="pub-title">Enhancing Predictive Accuracy in Embryo Implantation: The Bonna Algorithm</div>
-              <p class="pub-details">Rave G, Silver DH et al. AUC 0.754, state-of-the-art</p>
+              <div class="pub-info">
+                <div class="pub-title">Enhancing Predictive Accuracy in Embryo Implantation: The Bonna Algorithm</div>
+                <p class="pub-details">Rave G, Silver DH et al. &mdash; The full Bonna ensemble with DoodleP2P segmentation, 8-fold cross-validation, and confidence scoring. Validated on 5,141 embryos across 4 countries. State-of-the-art results on KID benchmark.</p>
+                <span class="pub-metric">AUC 0.754 &bull; State-of-the-art on KID</span>
+              </div>
             </li>
           </ul>
+        </div>
+      </section>
+
+      <!-- Additional clinical detail -->
+      <section class="content-section card" aria-labelledby="decisions-heading">
+        <div class="card-header" id="decisions-heading">WHAT THE CLINICIAN ACTUALLY SEES</div>
+        <div class="card-body" style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.7; display: flex; flex-direction: column; gap: 1rem;">
+          <p>For each embryo in a cycle, the dashboard displays:</p>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.8rem;">
+            <div style="background: var(--bg-elevated); padding: 0.9rem; border-radius: 6px; border-left: 3px solid #F472B6;">
+              <strong style="color: var(--text-primary); font-size: 0.82rem;">Implantation Score</strong>
+              <p style="font-size: 0.78rem; margin-top: 0.3rem; color: var(--text-muted);">0–100% probability from the 8-fold Bonna ensemble mean</p>
+            </div>
+            <div style="background: var(--bg-elevated); padding: 0.9rem; border-radius: 6px; border-left: 3px solid #FBBF24;">
+              <strong style="color: var(--text-primary); font-size: 0.82rem;">Confidence Badge</strong>
+              <p style="font-size: 0.78rem; margin-top: 0.3rem; color: var(--text-muted);">High / Medium / Low — from -log(STD) of 256 inference passes</p>
+            </div>
+            <div style="background: var(--bg-elevated); padding: 0.9rem; border-radius: 6px; border-left: 3px solid #22D3EE;">
+              <strong style="color: var(--text-primary); font-size: 0.82rem;">Aneuploidy Estimate</strong>
+              <p style="font-size: 0.78rem; margin-top: 0.3rem; color: var(--text-muted);">Age-adjusted parametric sigmoid, 20%→90% across 28→42yr</p>
+            </div>
+            <div style="background: var(--bg-elevated); padding: 0.9rem; border-radius: 6px; border-left: 3px solid #4ADE80;">
+              <strong style="color: var(--text-primary); font-size: 0.82rem;">Cycle Live Birth</strong>
+              <p style="font-size: 0.78rem; margin-top: 0.3rem; color: var(--text-muted);">1 - ∏(1 - FHB2LB × pᵢ) across all viable embryos</p>
+            </div>
+          </div>
+          <p>The embryologist sees the ranked list, reviews each score, compares against their morphological assessment, and makes the final transfer decision. The AI provides the signal; the human applies the clinical context.</p>
         </div>
       </section>
     </div>
 
     <footer class="journey-finale" aria-label="Rhea Labs">
-      <div class="journey-finale-mark" aria-hidden="true">◆</div>
+      <div class="journey-finale-mark" aria-hidden="true">&#9670;</div>
       <div class="journey-finale-brand">Rhea Labs</div>
+      <div class="journey-finale-tagline">When human expertise meets algorithmic objectivity</div>
       <div class="journey-finale-url">rhea-fertility.com</div>
     </footer>
   </div>
