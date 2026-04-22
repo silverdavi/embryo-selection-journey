@@ -40,9 +40,9 @@
   <div class="module-container module-04">
     <header class="intro">
       <p class="label">STAGE 04 &middot; VALIDATION</p>
-      <h1>Validated on 5,141 KID embryos, four countries, ten folds</h1>
+      <h1>Validated on 5,141 KID embryos across four countries</h1>
       <p>
-        Bonna&rsquo;s headline AUC is 0.754. What matters for your lab is the benchmark on which it was earned: Known Implantation Data, fetal heartbeat at 5&ndash;8 weeks, no human-scored proxies, no cherry-picked cohorts.
+        AUC is 0.754 on 10-fold cross-validation. The benchmark is Known Implantation Data with fetal heartbeat confirmed at 5&ndash;8 weeks post-transfer &mdash; no embryologist-score proxies, no non-transferred negatives, Day-5 cohort only.
       </p>
     </header>
 
@@ -57,7 +57,7 @@
         <span class="case-stage-tag">STAGE 04</span>
       </div>
       <div class="case-body">
-        <p><strong>Case #47</strong> sits in the fair-quality stratum (Gardner BB) &mdash; exactly where embryologist agreement drops to <code>&kappa; = 0.25</code>. In this stratum, the <em>Human Reproduction</em> 2022 study showed the DNN achieved <strong>AUC 0.67 versus 0.53</strong> for the 36-panelist mean. For Case #47 specifically, Bonna returned <strong>p = 0.72</strong> (transfer); the panel was split 25&ndash;11; the embryo implanted and delivered. This case is a <em>concordance with truth</em> example, not a disagreement-with-embryologist example. Where the AI most reliably contributes is the borderline stratum.</p>
+        <p><strong>Case #47</strong> is Gardner BB &mdash; the fair-quality stratum where panel &kappa; drops to 0.25. On the same stratum, the <em>Human Reproduction</em> 2022 study measured DNN AUC 0.67 against 0.53 for the 36-panelist mean. Bonna returned <strong>p = 0.72</strong>; 25 of 36 panelists recommended transfer; 11 did not; the embryo implanted and delivered.</p>
       </div>
     </div>
 
@@ -97,7 +97,7 @@
       </section>
 
       <section class="card" aria-labelledby="evo-heading">
-        <div class="card-header" id="evo-heading">Four peer-reviewed steps to state of the art</div>
+        <div class="card-header" id="evo-heading">Four peer-reviewed results, 2020&ndash;2024</div>
         <div class="card-body">
           <ul class="timeline-list">
             <li>
@@ -117,23 +117,23 @@
             </li>
             <li>
               <div class="timeline-year">2024 &middot; SPRINGER LNCS</div>
-              <div class="timeline-title">Bonna &mdash; State-of-the-Art Multi-Center Validation</div>
-              <p class="timeline-desc">AUC 0.754 on KID data from Israel, Spain, Ukraine, and France. Outperforms iDAScore v2, KIDScore, and all published single-image models.</p>
+              <div class="timeline-title">Bonna &mdash; Multi-Center KID Validation</div>
+              <p class="timeline-desc">AUC 0.754 on KID data from Israel, Spain, Ukraine, and France. Higher than iDAScore v2 (0.707) and KIDScore on the same benchmark.</p>
             </li>
           </ul>
         </div>
       </section>
 
       <aside class="insight-box">
-        <p class="insight-title">WHY THIS AUC NUMBER IS HONEST</p>
+        <p class="insight-title">ON AUCS ABOVE 0.9 IN THIS FIELD</p>
         <p>
-          Several embryo-AI papers report AUC &gt; 0.9. Read the methods. Those numbers typically come from (a) benchmarking against embryologist scores rather than Known Implantation Data, (b) including non-transferred embryos as negatives, or (c) mixing Day 3 and Day 5 cohorts. Bonna reports only <strong>AUC against KID with fetal heartbeat confirmed at 5&ndash;8 weeks post-transfer</strong> &mdash; the hardest, most clinically meaningful benchmark. An AUC of 0.754 on this benchmark is currently the best published.
+          Several published embryo-AI papers report AUC &gt; 0.9. Those numbers usually reflect benchmarks against embryologist scores (not KID), inclusion of non-transferred embryos as negatives, or pooled Day-3 and Day-5 cohorts. Bonna is reported only against KID with fetal heartbeat at 5&ndash;8 weeks post-transfer. On that benchmark, 0.754 is the highest we are aware of in peer-reviewed literature.
         </p>
       </aside>
     </div>
 
     <p class="teaser">
-      A single probability is not enough for a clinical decision. You need its uncertainty. <span style="color: var(--stage-5);">&rarr; Confidence</span>
+      Next: how Bonna reports uncertainty alongside each score. <span style="color: var(--stage-5);">&rarr; Confidence</span>
     </p>
   </div>
 </body>

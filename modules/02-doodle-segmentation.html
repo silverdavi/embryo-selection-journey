@@ -84,9 +84,9 @@
   <div class="module-container module-02">
     <header class="intro">
       <div class="label">STAGE 02 &middot; COMPUTER VISION PREPROCESSING</div>
-      <h1>Separating biology from optics with DoodleP2P</h1>
+      <h1>DoodleP2P: segmenting the zona, cavity, and ICM+TE before scoring</h1>
       <p>
-        Before we ask a network to predict implantation, we ask it to see what an embryologist sees: the zona pellucida, the trophectoderm, and the blastocoel. A custom GAN does this in software that is hardware-agnostic across EmbryoScope, Geri, and Miri.
+        DoodleP2P is a Pix2Pix GAN trained on 3,217 hand-annotated embryo frames. It converts a raw time-lapse image into a three-channel mask: zona pellucida, blastocoel cavity, and trophectoderm + ICM. The mask discards brightness, focal depth, and optics, which is why Bonna runs unmodified on EmbryoScope, Geri, and Miri.
       </p>
     </header>
 
@@ -157,15 +157,15 @@
       </article>
 
       <aside class="insight-box">
-        <p class="insight-title">WHY THIS MATTERS FOR YOUR LAB</p>
+        <p class="insight-title">HARDWARE PORTABILITY</p>
         <p>
-          If your clinic switches time-lapse hardware, or you operate across multiple sites with heterogeneous equipment, Bonna&rsquo;s performance does <strong>not</strong> degrade. DoodleP2P absorbs the optical variability. This is the key reason Bonna generalizes from its training set in Israel to deployments in Spain, Ukraine, France, and now GenPrime clinics in Asia &mdash; without a retraining step.
+          Bonna was trained in Israel and has since been validated on clinic data from Spain, Ukraine, and France without per-site retraining. The portability comes from DoodleP2P: once the frame is reduced to a 3-channel biological mask, the downstream network sees the same input regardless of camera, light source, or magnification.
         </p>
       </aside>
     </main>
 
     <p class="teaser">
-      Once biology is isolated from optics, three parallel networks can read it. <span style="color: var(--stage-3);">&rarr; Architecture</span>
+      Next: the three networks that read the segmented frame. <span style="color: var(--stage-3);">&rarr; Architecture</span>
     </p>
   </div>
 </body>

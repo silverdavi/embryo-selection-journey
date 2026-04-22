@@ -65,9 +65,9 @@
   <div class="module-container module-05">
     <header class="intro">
       <p class="label">STAGE 05 &middot; UNCERTAINTY QUANTIFICATION</p>
-      <h1>A probability is decision support. A probability plus its uncertainty is clinical decision support.</h1>
+      <h1>Per-embryo uncertainty, reported alongside every score</h1>
       <p>
-        Bonna returns a mean and a standard deviation. When the model is internally consistent (low STD), AUC reaches 0.90. When it is not, it tells you so &mdash; and invites your judgment in.
+        Every embryo is evaluated in 256 forward passes (16 augmentations &times; 16 dropout masks). Bonna returns the mean (<code>p_implantation</code>) and a confidence score derived from the standard deviation. On the top-10% confidence stratum, AUC rises to 0.90; on the bottom stratum it drops toward chance, and the model signals this directly.
       </p>
     </header>
 
@@ -82,7 +82,7 @@
         <span class="case-stage-tag">STAGE 05</span>
       </div>
       <div class="case-body">
-        <p>For Case #47, the 256 passes yielded scores from 0.61 to 0.83. The distribution: <strong>mean = 0.72</strong>, <strong>STD = 0.048</strong>, confidence <code>-log(0.048) = 3.04</code>. That lands in the <strong>top 40%</strong> confidence tier. For embryos in this tier, Bonna&rsquo;s AUC rises to <strong>0.82</strong>. In clinical terms: this score is stable under viewpoint and parameter perturbation &mdash; you can treat it as actionable. Compare with a hypothetical embryo scoring 0.72 &plusmn; 0.19: same point estimate, very different clinical meaning.</p>
+        <p>Case #47&rsquo;s 256 passes span 0.61&ndash;0.83, mean 0.72, STD 0.048. Confidence <code>&minus;log(0.048) = 3.04</code> puts it in the top-40% tier, where Bonna&rsquo;s AUC is 0.82. Same point estimate with STD 0.19 would sit in the bottom tier, where the model is near chance &mdash; the score looks identical on paper but carries a different weight in a transfer decision.</p>
       </div>
     </div>
 
@@ -113,7 +113,7 @@
               <span class="step-num">1</span>
               <div class="step-body">
                 <div class="step-title">Test-time augmentation (TTA)</div>
-                <p class="step-desc">Each embryo frame is evaluated under 16 random transforms &mdash; rotation, translation, scaling, horizontal flip, brightness jitter. A well-trained model should not change its mind when the embryo is rotated 17&deg;; if it does, that is epistemic uncertainty.</p>
+                <p class="step-desc">Each frame is evaluated under 16 random transforms (rotation, translation, scaling, horizontal flip, brightness jitter). Score variance across these transforms captures how dependent the prediction is on viewpoint.</p>
               </div>
             </div>
             <div class="step-row">
@@ -135,11 +135,11 @@
       </section>
 
       <aside class="insight-box">
-        <p class="insight-title">HOW TO USE THIS IN YOUR WORKFLOW</p>
+        <p class="insight-title">READING THE TIERS</p>
         <p>
-          <strong>High confidence tier (top 10%):</strong> AUC &asymp; 0.90. The model is internally consistent. Use the score as a primary ranking signal for this cycle&rsquo;s transfer decision.<br><br>
-          <strong>Mid tier (middle 50%):</strong> AUC &asymp; 0.78. Typical case. Use the score alongside morphokinetic and patient factors.<br><br>
-          <strong>Low-confidence tier (bottom 10%):</strong> The model is telling you it cannot reliably stratify this embryo from its view &mdash; common in cases with debris, off-focus frames, or unusual morphology. Weight embryologist judgment more heavily.
+          <strong>Top 10% (high confidence):</strong> AUC &asymp; 0.90. Score is robust across 256 perturbations; usable as a primary ranking signal.<br><br>
+          <strong>Middle 50%:</strong> AUC &asymp; 0.78. Score should be weighed against morphokinetic and patient factors.<br><br>
+          <strong>Bottom 10% (low confidence):</strong> Score is not robust on this frame &mdash; common with debris, off-focus frames, or unusual morphology. Defer to embryologist judgment.
         </p>
       </aside>
 
@@ -173,7 +173,7 @@
     </div>
 
     <p class="teaser">
-      Now we move from single-image scoring to your actual lab workflow. <span style="color: var(--stage-6);">&rarr; Lab Integration</span>
+      Next: the path from TLI upload to a cycle-level live-birth estimate. <span style="color: var(--stage-6);">&rarr; Lab Integration</span>
     </p>
   </div>
 </body>

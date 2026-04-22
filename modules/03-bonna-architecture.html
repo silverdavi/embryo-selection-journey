@@ -105,9 +105,9 @@
   <div class="module-container module-03">
     <header class="intro">
       <div class="label">STAGE 03 &middot; MODEL ARCHITECTURE</div>
-      <h1>Three views of the same blastocyst, one calibrated prediction</h1>
+      <h1>Bonna: an 8-fold ensemble over three feature branches</h1>
       <p>
-        Bonna is not a single model. It is an 8-fold ensemble of three complementary views &mdash; pixels, biology, and global spatial pattern &mdash; concatenated and trained on Known Implantation Data (KID) from four countries.
+        The ensemble fuses a pixel branch (MobileNetV2), a biological branch (DoodleP2P &rarr; encoder) and a global-pattern branch (ViT-Base/16). Eight MLP heads are trained on non-overlapping folds of 5,141 Known Implantation Data (KID) embryos from four countries.
       </p>
     </header>
 
@@ -206,13 +206,13 @@
         <div class="card-header">Inference-time augmentation &middot; Uncertainty quantification</div>
         <div class="card-body">
           <p style="margin-bottom: 0.9rem;">Each embryo frame is evaluated in <strong>256 forward passes</strong>: 16 random augmentations (rotations, translations, horizontal flips, brightness jitter) &times; 16 Monte-Carlo dropout samples. This is MCD &mdash; Monte-Carlo Dropout as proposed by Gal &amp; Ghahramani (2016) &mdash; applied to a medical imaging problem.</p>
-          <p style="margin-bottom: 0;">The resulting 256-element score distribution has a mean (the implantation probability) and a standard deviation (the uncertainty). The clinician receives both. A tight distribution means the model is consistent across orientations and parameter subsets; a wide distribution tells you to weigh your own judgment more heavily.</p>
+          <p style="margin-bottom: 0;">The 256-element distribution has a mean (the implantation probability) and a standard deviation (the uncertainty). Both are returned. A tight distribution means the score is stable under perturbation; a wide one means the score is not robust for this frame.</p>
         </div>
       </article>
     </main>
 
     <p class="teaser">
-      Architecture defined. Now: how does it perform on your benchmark? <span style="color: var(--stage-4);">&rarr; Validation</span>
+      Next: AUC on multi-center KID data, and how other models compare. <span style="color: var(--stage-4);">&rarr; Validation</span>
     </p>
   </div>
 </body>

@@ -66,9 +66,9 @@
   <div class="module-container module-06">
     <header class="intro">
       <p class="label">STAGE 06 &middot; LAB INTEGRATION</p>
-      <h1>How Bonna fits into your existing lab workflow</h1>
+      <h1>From TLI upload to cycle live-birth estimate</h1>
       <p>
-        Bonna ingests directly from EmbryoScope, Geri, Miri, or manual capture. Inference runs on cloud GPU, autoscales per cycle, and returns a cycle-level live-birth probability via a WebSocket to your lab dashboard or LIMS.
+        Ingest supports EmbryoScope, Geri, and Miri (direct API) or manual upload. Inference runs on cloud GPU with per-clinic data isolation; a cycle-level Lambda computes live-birth probability once all embryos are scored and pushes the result over WebSocket to the lab dashboard or LIMS (HL7 FHIR).
       </p>
     </header>
 
@@ -152,14 +152,14 @@
             <span class="var-f">FHB2LB</span>(<span class="var-age">age</span>) = sigmoid(offset=0, max=0.875, mid=44.96, slope=&minus;0.464)
           </div>
           <p style="margin-top: 0.85rem; font-size: 0.9rem; color: var(--text-body); line-height: 1.6;">
-            The FHB2LB factor is the age-conditioned probability that a confirmed fetal heartbeat at 5&ndash;8 weeks proceeds to live birth. It is fit to published Rhea outcome data (primary endpoint: live birth, not clinical pregnancy). This matters for your patient conversations: a cycle live-birth number that is honestly below clinical pregnancy but honestly above 0 is a better basis for shared decision-making than an inflated p-pregnancy.
+            FHB2LB is the age-conditioned probability that a fetal heartbeat at 5&ndash;8 weeks proceeds to live birth, fit to Rhea outcome data. The primary endpoint is live birth, not clinical pregnancy &mdash; so the cycle number reported to the patient is lower than a clinical-pregnancy figure, but it is the number that matches the outcome they care about.
           </p>
         </div>
       </article>
     </div>
 
     <p class="teaser">
-      Infrastructure is table stakes. The question is: what do you &mdash; the embryologist &mdash; see, and do, on Day 5? <span style="color: var(--stage-7);">&rarr; Clinical workflow</span>
+      Next: what the embryologist sees on Day 5, and what changes. <span style="color: var(--stage-7);">&rarr; Clinical workflow</span>
     </p>
   </div>
 </body>
