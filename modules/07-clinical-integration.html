@@ -204,35 +204,20 @@
     }
 
     .finale-lockup {
-      display: flex; flex-direction: column; align-items: center;
-      gap: 1rem; margin: 2rem auto 0.25rem;
-      padding: 2rem 2.5rem 1.75rem;
-      background: #0F0B1A;
-      background: radial-gradient(ellipse at center, #1A1428 0%, #0A0712 100%);
-      border-radius: 16px;
+      display: flex; justify-content: center;
+      margin: 2rem auto 0.25rem;
+      padding: 0;
+      background: #000;
+      border-radius: 14px;
       box-shadow: 0 20px 50px -20px rgba(124,95,216,0.35),
-                  0 4px 12px rgba(0,0,0,0.15);
-      max-width: 640px;
-      position: relative;
+                  0 4px 12px rgba(0,0,0,0.2);
+      max-width: 580px;
       overflow: hidden;
-    }
-    .finale-lockup::before {
-      content: "";
-      position: absolute; inset: 0;
-      background: radial-gradient(circle at 80% 50%, rgba(124,95,216,0.18), transparent 55%);
-      pointer-events: none;
+      line-height: 0;
     }
     .finale-lockup-img {
-      width: 100%; max-width: 520px; height: auto; display: block;
-      position: relative; z-index: 1;
+      width: 100%; max-width: 580px; height: auto; display: block;
     }
-    .finale-lockup-caption {
-      font-family: var(--font-mono); font-size: 0.66rem;
-      letter-spacing: 0.14em; text-transform: uppercase;
-      color: rgba(220, 210, 245, 0.7); text-align: center;
-      position: relative; z-index: 1;
-    }
-    .finale-lockup-caption strong { color: rgba(195, 168, 240, 1); font-weight: 600; letter-spacing: 0.14em; }
 
     .finale-hierarchy {
       display: grid; grid-template-columns: repeat(3, 1fr);
