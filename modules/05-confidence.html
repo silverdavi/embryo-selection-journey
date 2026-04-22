@@ -3,323 +3,178 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stage 05 — When the Model Knows It Knows</title>
+  <title>Stage 05 &mdash; Uncertainty Quantification</title>
   <link rel="stylesheet" href="../styles/global.css">
   <style>
-    body {
-      overflow-y: auto;
-      padding-bottom: 80px;
-    }
+    body { overflow-y: auto; padding-bottom: 80px; }
 
-    .content {
-      opacity: 1;
-      animation: none;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-    }
+    .module-05 .intro .label { color: var(--stage-5); }
+    .module-05 .content { opacity: 1; animation: none; display: flex; flex-direction: column; gap: 2rem; }
+    .module-05 .content > * { opacity: 0; animation: fadeUp 0.8s var(--ease-out-expo) forwards; }
+    .module-05 .content > *:nth-child(1) { animation-delay: 0.85s; }
+    .module-05 .content > *:nth-child(2) { animation-delay: 1s; }
+    .module-05 .content > *:nth-child(3) { animation-delay: 1.15s; }
+    .module-05 .content > *:nth-child(4) { animation-delay: 1.3s; }
 
-    .content-section {
-      opacity: 0;
-      animation: fadeUp 0.8s var(--ease-out-expo) forwards;
-    }
-    .content-section:nth-child(1) { animation-delay: 0.85s; }
-    .content-section:nth-child(2) { animation-delay: 1s; }
-    .content-section:nth-child(3) { animation-delay: 1.15s; }
-    .content-section:nth-child(4) { animation-delay: 1.3s; }
+    .module-05 .stat-value { color: var(--stage-5); }
+    .module-05 .insight-box { border-left-color: var(--stage-5); background: var(--stage-5-tint); }
+    .module-05 .case-stage-tag { background: var(--stage-5); }
 
-    .teaser {
-      animation-delay: 1.5s;
-    }
-
-    .stage-accent { color: #FBBF24; }
-    .stat-value.stage-accent { color: #FBBF24; }
-
-    .steps {
-      display: flex;
-      flex-direction: column;
-      gap: 1.25rem;
-    }
-    .step-row {
-      display: flex;
-      gap: 1rem;
-      align-items: flex-start;
-    }
+    .steps { display: flex; flex-direction: column; gap: 1.15rem; }
+    .step-row { display: flex; gap: 1rem; align-items: flex-start; }
     .step-num {
-      flex-shrink: 0;
-      width: 32px;
-      height: 32px;
-      border-radius: 50%;
-      border: 2px solid #FBBF24;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      font-weight: 600;
-      color: #FBBF24;
+      flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%;
+      border: 2px solid var(--stage-5); display: flex;
+      align-items: center; justify-content: center;
+      font-family: var(--font-mono); font-size: 0.78rem; font-weight: 600;
+      color: var(--stage-5); background: var(--bg-elevated);
     }
-    .step-body {
-      flex: 1;
-      min-width: 0;
-    }
+    .step-body { flex: 1; min-width: 0; }
     .step-title {
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #FBBF24;
-      margin-bottom: 0.35rem;
+      font-family: var(--font-mono); font-size: 0.7rem;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: var(--stage-5); margin-bottom: 0.35rem; font-weight: 600;
     }
-    .step-desc {
-      font-size: 0.82rem;
-      color: var(--text-secondary);
-      line-height: 1.55;
-    }
+    .step-desc { font-size: 0.95rem; color: var(--text-body); line-height: 1.6; }
 
-    .insight-box.stage-5 {
-      border-left-color: #FBBF24;
-    }
-
-    .teaser-cyan {
-      color: #22D3EE;
-    }
-
-    .auc-bars {
-      display: flex;
-      flex-direction: column;
-      gap: 0.75rem;
-    }
-    .auc-bar-row {
-      display: flex;
-      align-items: center;
-      gap: 0.75rem;
-    }
+    .auc-bars { display: flex; flex-direction: column; gap: 0.85rem; }
+    .auc-bar-row { display: flex; align-items: center; gap: 0.85rem; }
     .auc-bar-label {
-      flex: 0 0 7.5rem;
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--text-secondary);
+      flex: 0 0 10rem; font-family: var(--font-mono);
+      font-size: 0.8rem; color: var(--text-body);
     }
     .auc-bar-track {
-      flex: 1;
-      min-width: 0;
-      position: relative;
-      height: 32px;
-      background: var(--bg-elevated);
-      border-radius: 4px;
-      overflow: hidden;
+      flex: 1; min-width: 0; position: relative;
+      height: 32px; background: var(--bg-sunken);
+      border-radius: 6px; overflow: hidden;
+      border: 1px solid var(--border-soft);
     }
     .auc-bar-fill {
-      height: 100%;
-      border-radius: 4px;
-      background: linear-gradient(90deg, rgba(251, 191, 36, 0.3), rgba(251, 191, 36, 0.7));
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      padding-right: 0.5rem;
-      min-width: 2.5rem;
-      box-sizing: border-box;
+      height: 100%; border-radius: 6px;
+      background: linear-gradient(90deg, var(--stage-5-tint), var(--stage-5));
+      display: flex; align-items: center; justify-content: flex-end;
+      padding-right: 0.55rem; min-width: 3rem; box-sizing: border-box;
     }
     .auc-bar-value {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: var(--text-primary);
-      text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
-    }
-
-    .running-example {
-      width: 100%;
-      max-width: 1100px;
-      margin-bottom: 2rem;
-      background: var(--bg-surface);
-      border: 1px solid rgba(155, 125, 255, 0.2);
-      border-radius: 8px;
-      overflow: hidden;
-      opacity: 0;
-      animation: fadeUp 0.8s var(--ease-out-expo) 0.55s forwards;
-    }
-    .re-header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 0.8rem 1rem;
-      background: var(--bg-elevated);
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-    }
-    .re-thumb {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid rgba(155, 125, 255, 0.3);
-    }
-    .re-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 0.15rem;
-    }
-    .re-badge {
-      font-family: var(--font-mono);
-      font-size: 0.5rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #9B7DFF;
-    }
-    .re-id {
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-    .re-patient {
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      color: var(--text-muted);
-    }
-    .re-body {
-      padding: 1rem 1.2rem;
-      font-size: 0.78rem;
-      color: var(--text-secondary);
-      line-height: 1.65;
-    }
-    .re-body strong { color: var(--text-primary); font-weight: 600; }
-    .re-body code {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      background: var(--bg-elevated);
-      padding: 0.1rem 0.35rem;
-      border-radius: 3px;
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
+      font-family: var(--font-mono); font-size: 0.8rem;
+      font-weight: 600; color: white;
     }
   </style>
 </head>
 <body>
-  <div class="module-container">
+  <div class="module-container module-05">
     <header class="intro">
-      <p class="label stage-accent">STAGE 05</p>
-      <h1>When the Model Knows It Knows</h1>
-      <p>The Bonna algorithm doesn't just predict — it reports how certain it is. When confidence is high, AUC reaches 0.9.</p>
+      <p class="label">STAGE 05 &middot; UNCERTAINTY QUANTIFICATION</p>
+      <h1>A probability is decision support. A probability plus its uncertainty is clinical decision support.</h1>
+      <p>
+        Bonna returns a mean and a standard deviation. When the model is internally consistent (low STD), AUC reaches 0.90. When it is not, it tells you so &mdash; and invites your judgment in.
+      </p>
     </header>
 
-    <div class="running-example">
-      <div class="re-header">
-        <img src="../assets/embryo-timelapse.gif" alt="Embryo #47" class="re-thumb">
-        <div class="re-meta">
-          <span class="re-badge">RUNNING EXAMPLE</span>
-          <span class="re-id">Embryo #47 — Day 5 Blastocyst</span>
-          <span class="re-patient">Patient: 34yo, AMH 2.1 ng/mL, BMI 24.2</span>
+    <div class="case-panel">
+      <div class="case-header">
+        <img src="../assets/embryo-timelapse.gif" alt="Case #47" class="case-thumb">
+        <div class="case-meta">
+          <span class="case-badge">Case &middot; Confidence band</span>
+          <span class="case-id">Case #47 &middot; Day 5 Blastocyst</span>
+          <span class="case-demo">256 passes &middot; mean 0.72 &middot; STD 0.048 &middot; high-confidence tier</span>
         </div>
+        <span class="case-stage-tag">STAGE 05</span>
       </div>
-      <div class="re-body">
-        <p>For <strong>Embryo #47</strong>, the 256 inference passes (16 augmentations × 16 dropout samples) produced scores ranging from 0.61 to 0.83, with <strong>mean = 0.72</strong> and <strong>STD = 0.048</strong>. The confidence score <code>-log(0.048) = 3.04</code> places it in the <strong>top 40%</strong> confidence tier — high enough that the prediction is clinically actionable. At this confidence level, the model's AUC exceeds <strong>0.82</strong>.</p>
+      <div class="case-body">
+        <p>For Case #47, the 256 passes yielded scores from 0.61 to 0.83. The distribution: <strong>mean = 0.72</strong>, <strong>STD = 0.048</strong>, confidence <code>-log(0.048) = 3.04</code>. That lands in the <strong>top 40%</strong> confidence tier. For embryos in this tier, Bonna&rsquo;s AUC rises to <strong>0.82</strong>. In clinical terms: this score is stable under viewpoint and parameter perturbation &mdash; you can treat it as actionable. Compare with a hypothetical embryo scoring 0.72 &plusmn; 0.19: same point estimate, very different clinical meaning.</p>
       </div>
     </div>
 
     <div class="content">
-      <section class="content-section stat-grid" aria-label="Confidence statistics">
+      <section class="stat-grid" aria-label="Confidence statistics">
         <div class="stat-card">
-          <div class="stat-value stage-accent">0.9</div>
-          <div class="stat-label">Peak AUC</div>
-          <div class="stat-sub">At 10th confidence percentile</div>
+          <div class="stat-value">0.90</div>
+          <div class="stat-label">AUC at top-10% confidence</div>
+          <div class="stat-sub">Near-diagnostic accuracy</div>
         </div>
         <div class="stat-card">
-          <div class="stat-value stage-accent">256</div>
+          <div class="stat-value">256</div>
           <div class="stat-label">Passes per embryo</div>
-          <div class="stat-sub">16 augmentations × 16 dropout</div>
+          <div class="stat-sub">16 augmentations &times; 16 dropout</div>
         </div>
         <div class="stat-card">
-          <div class="stat-value stage-accent">-log(σ)</div>
+          <div class="stat-value">-log(&sigma;)</div>
           <div class="stat-label">Confidence metric</div>
-          <div class="stat-sub">Higher = more certain</div>
+          <div class="stat-sub">Reported alongside p_implantation</div>
         </div>
       </section>
 
-      <section class="content-section card" aria-labelledby="how-heading">
-        <div class="card-header" id="how-heading">HOW CONFIDENCE SCORING WORKS</div>
+      <section class="card">
+        <div class="card-header">How uncertainty is computed &middot; MC dropout + TTA</div>
         <div class="card-body">
           <div class="steps">
             <div class="step-row">
-              <span class="step-num" aria-hidden="true">1</span>
+              <span class="step-num">1</span>
               <div class="step-body">
-                <div class="step-title">Augmentation</div>
-                <p class="step-desc">Each embryo image undergoes 16 random transformations (rotation, translation, scaling, flips) to test prediction stability across orientations.</p>
+                <div class="step-title">Test-time augmentation (TTA)</div>
+                <p class="step-desc">Each embryo frame is evaluated under 16 random transforms &mdash; rotation, translation, scaling, horizontal flip, brightness jitter. A well-trained model should not change its mind when the embryo is rotated 17&deg;; if it does, that is epistemic uncertainty.</p>
               </div>
             </div>
             <div class="step-row">
-              <span class="step-num" aria-hidden="true">2</span>
+              <span class="step-num">2</span>
               <div class="step-body">
-                <div class="step-title">Dropout simulation</div>
-                <p class="step-desc">For each augmented image, 16 dropout passes randomly omit subsets of neurons, simulating an ensemble of 256 different models evaluating the same embryo.</p>
+                <div class="step-title">Monte-Carlo dropout (MCD)</div>
+                <p class="step-desc">For each augmented view, 16 forward passes apply independent dropout masks to the classifier heads. This approximates sampling from a Bayesian posterior over model parameters (Gal &amp; Ghahramani, ICML 2016).</p>
               </div>
             </div>
             <div class="step-row">
-              <span class="step-num" aria-hidden="true">3</span>
+              <span class="step-num">3</span>
               <div class="step-body">
-                <div class="step-title">Confidence quantification</div>
-                <p class="step-desc">The standard deviation of the resulting 256 scores measures prediction stability. -log(STD) converts this to a confidence score where higher values mean greater certainty.</p>
+                <div class="step-title">Confidence score</div>
+                <p class="step-desc">The standard deviation of the resulting 256-value distribution quantifies total predictive uncertainty. We report <code>-log(&sigma;)</code> so that &ldquo;higher is more certain&rdquo; matches clinician intuition.</p>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <aside class="content-section insight-box stage-5" aria-label="Clinical implications">
-        <p class="insight-title">CLINICAL IMPLICATIONS</p>
-        <p>This isn't academic nuance — it's decision support. When Bonna reports high confidence, AUC approaches 0.9 (near-diagnostic accuracy). When confidence is low, the clinician knows to weigh other factors more heavily. The model becomes a calibrated collaborator, not a black-box oracle.</p>
+      <aside class="insight-box">
+        <p class="insight-title">HOW TO USE THIS IN YOUR WORKFLOW</p>
+        <p>
+          <strong>High confidence tier (top 10%):</strong> AUC &asymp; 0.90. The model is internally consistent. Use the score as a primary ranking signal for this cycle&rsquo;s transfer decision.<br><br>
+          <strong>Mid tier (middle 50%):</strong> AUC &asymp; 0.78. Typical case. Use the score alongside morphokinetic and patient factors.<br><br>
+          <strong>Low-confidence tier (bottom 10%):</strong> The model is telling you it cannot reliably stratify this embryo from its view &mdash; common in cases with debris, off-focus frames, or unusual morphology. Weight embryologist judgment more heavily.
+        </p>
       </aside>
 
-      <section class="content-section card" aria-labelledby="perf-heading">
-        <div class="card-header" id="perf-heading">CONFIDENCE vs PERFORMANCE</div>
+      <section class="card">
+        <div class="card-header">AUC stratified by confidence percentile</div>
         <div class="card-body">
           <div class="auc-bars">
             <div class="auc-bar-row">
               <span class="auc-bar-label">All embryos</span>
-              <div class="auc-bar-track">
-                <div class="auc-bar-fill" style="width: 75.4%;"><span class="auc-bar-value">0.754</span></div>
-              </div>
+              <div class="auc-bar-track"><div class="auc-bar-fill" style="width: 75.4%;"><span class="auc-bar-value">0.754</span></div></div>
             </div>
             <div class="auc-bar-row">
-              <span class="auc-bar-label">Top 75%</span>
-              <div class="auc-bar-track">
-                <div class="auc-bar-fill" style="width: 78%;"><span class="auc-bar-value">0.78</span></div>
-              </div>
+              <span class="auc-bar-label">Top 75% conf.</span>
+              <div class="auc-bar-track"><div class="auc-bar-fill" style="width: 78%;"><span class="auc-bar-value">0.78</span></div></div>
             </div>
             <div class="auc-bar-row">
-              <span class="auc-bar-label">Top 50%</span>
-              <div class="auc-bar-track">
-                <div class="auc-bar-fill" style="width: 82%;"><span class="auc-bar-value">0.82</span></div>
-              </div>
+              <span class="auc-bar-label">Top 50% conf.</span>
+              <div class="auc-bar-track"><div class="auc-bar-fill" style="width: 82%;"><span class="auc-bar-value">0.82</span></div></div>
             </div>
             <div class="auc-bar-row">
-              <span class="auc-bar-label">Top 25%</span>
-              <div class="auc-bar-track">
-                <div class="auc-bar-fill" style="width: 87%;"><span class="auc-bar-value">0.87</span></div>
-              </div>
+              <span class="auc-bar-label">Top 25% conf.</span>
+              <div class="auc-bar-track"><div class="auc-bar-fill" style="width: 87%;"><span class="auc-bar-value">0.87</span></div></div>
             </div>
             <div class="auc-bar-row">
-              <span class="auc-bar-label">Top 10%</span>
-              <div class="auc-bar-track">
-                <div class="auc-bar-fill" style="width: 90%;"><span class="auc-bar-value">0.90</span></div>
-              </div>
+              <span class="auc-bar-label">Top 10% conf.</span>
+              <div class="auc-bar-track"><div class="auc-bar-fill" style="width: 90%;"><span class="auc-bar-value">0.90</span></div></div>
             </div>
           </div>
         </div>
       </section>
     </div>
 
-    <p class="teaser"><span class="teaser-cyan">Confidence-aware prediction is ready. How does it run at scale in production? →</span></p>
+    <p class="teaser">
+      Now we move from single-image scoring to your actual lab workflow. <span style="color: var(--stage-6);">&rarr; Lab Integration</span>
+    </p>
   </div>
 </body>
 </html>

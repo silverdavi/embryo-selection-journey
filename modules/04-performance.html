@@ -3,265 +3,138 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stage 04 — State of the Art</title>
+  <title>Stage 04 &mdash; Validation on KID Data</title>
   <link rel="stylesheet" href="../styles/global.css">
   <style>
-    body {
-      overflow-y: auto;
-      padding-bottom: 80px;
-    }
+    body { overflow-y: auto; padding-bottom: 80px; }
 
-    .content {
-      opacity: 1;
-      animation: none;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-    }
+    .module-04 .intro .label { color: var(--stage-4); }
+    .module-04 .content { opacity: 1; animation: none; display: flex; flex-direction: column; gap: 2rem; }
+    .module-04 .content > * { opacity: 0; animation: fadeUp 0.8s var(--ease-out-expo) forwards; }
+    .module-04 .content > *:nth-child(1) { animation-delay: 0.85s; }
+    .module-04 .content > *:nth-child(2) { animation-delay: 1s; }
+    .module-04 .content > *:nth-child(3) { animation-delay: 1.15s; }
+    .module-04 .content > *:nth-child(4) { animation-delay: 1.3s; }
 
-    .content-section {
-      opacity: 0;
-      animation: fadeUp 0.8s var(--ease-out-expo) forwards;
-    }
-    .content-section:nth-child(1) { animation-delay: 0.85s; }
-    .content-section:nth-child(2) { animation-delay: 1s; }
-    .content-section:nth-child(3) { animation-delay: 1.15s; }
-    .content-section:nth-child(4) { animation-delay: 1.3s; }
+    .module-04 .stat-value { color: var(--stage-4); }
+    .module-04 .insight-box { border-left-color: var(--stage-4); background: var(--stage-4-tint); }
+    .module-04 .case-stage-tag { background: var(--stage-4); }
 
-    .teaser {
-      animation-delay: 1.5s;
-    }
-
-    .stage-accent { color: #4ADE80; }
-    .stat-value.stage-accent { color: #4ADE80; }
-
-    .split {
-      grid-template-columns: 1fr 1fr;
-    }
-    @media (max-width: 768px) {
-      .split {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .timeline-list {
-      list-style: none;
-      margin: 0;
-      padding: 0 0 0 1.25rem;
-      border-left: 2px solid rgba(74, 222, 128, 0.35);
-    }
-    .timeline-list li {
-      position: relative;
-      padding: 0 0 1.25rem 1rem;
-    }
-    .timeline-list li:last-child {
-      padding-bottom: 0;
-    }
+    .timeline-list { list-style: none; margin: 0; padding: 0 0 0 1.4rem; border-left: 2px solid var(--stage-4); }
+    .timeline-list li { position: relative; padding: 0 0 1.25rem 1rem; }
+    .timeline-list li:last-child { padding-bottom: 0; }
     .timeline-list li::before {
-      content: '';
-      position: absolute;
-      left: calc(-1.25rem - 5px);
-      top: 0.35rem;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--bg-deep);
-      border: 2px solid #4ADE80;
+      content: ''; position: absolute; left: calc(-1.4rem - 5px); top: 0.35rem;
+      width: 10px; height: 10px; border-radius: 50%;
+      background: var(--bg-elevated); border: 2px solid var(--stage-4);
     }
     .timeline-year {
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      font-weight: 600;
-      color: #4ADE80;
-      margin-bottom: 0.25rem;
+      font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600;
+      color: var(--stage-4); margin-bottom: 0.25rem; letter-spacing: 0.06em;
     }
-    .timeline-title {
-      font-weight: 600;
-      font-size: 0.88rem;
-      margin-bottom: 0.35rem;
-    }
-    .timeline-desc {
-      font-size: 0.78rem;
-      color: var(--text-secondary);
-      line-height: 1.55;
-    }
-
-    .insight-box.stage-4 {
-      border-left-color: #4ADE80;
-    }
-
-    .teaser-gold {
-      color: #FBBF24;
-    }
-
-    .running-example {
-      width: 100%;
-      max-width: 1100px;
-      margin-bottom: 2rem;
-      background: var(--bg-surface);
-      border: 1px solid rgba(155, 125, 255, 0.2);
-      border-radius: 8px;
-      overflow: hidden;
-      opacity: 0;
-      animation: fadeUp 0.8s var(--ease-out-expo) 0.55s forwards;
-    }
-    .re-header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 0.8rem 1rem;
-      background: var(--bg-elevated);
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-    }
-    .re-thumb {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid rgba(155, 125, 255, 0.3);
-    }
-    .re-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 0.15rem;
-    }
-    .re-badge {
-      font-family: var(--font-mono);
-      font-size: 0.5rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #9B7DFF;
-    }
-    .re-id {
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-    .re-patient {
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      color: var(--text-muted);
-    }
-    .re-body {
-      padding: 1rem 1.2rem;
-      font-size: 0.78rem;
-      color: var(--text-secondary);
-      line-height: 1.65;
-    }
-    .re-body strong { color: var(--text-primary); font-weight: 600; }
-    .re-body code {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      background: var(--bg-elevated);
-      padding: 0.1rem 0.35rem;
-      border-radius: 3px;
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+    .timeline-title { font-weight: 600; font-size: 0.98rem; margin-bottom: 0.35rem; color: var(--text-primary); }
+    .timeline-desc { font-size: 0.88rem; color: var(--text-body); line-height: 1.55; }
   </style>
 </head>
 <body>
-  <div class="module-container">
+  <div class="module-container module-04">
     <header class="intro">
-      <p class="label stage-accent">STAGE 04</p>
-      <h1>State of the Art</h1>
-      <p>Validated on 5,141 embryos from 4 countries with 10-fold cross-validation, Bonna achieves AUC 0.754 — outperforming every published model and all 36 embryologists individually.</p>
+      <p class="label">STAGE 04 &middot; VALIDATION</p>
+      <h1>Validated on 5,141 KID embryos, four countries, ten folds</h1>
+      <p>
+        Bonna&rsquo;s headline AUC is 0.754. What matters for your lab is the benchmark on which it was earned: Known Implantation Data, fetal heartbeat at 5&ndash;8 weeks, no human-scored proxies, no cherry-picked cohorts.
+      </p>
     </header>
 
-    <div class="running-example">
-      <div class="re-header">
-        <img src="../assets/embryo-timelapse.gif" alt="Embryo #47" class="re-thumb">
-        <div class="re-meta">
-          <span class="re-badge">RUNNING EXAMPLE</span>
-          <span class="re-id">Embryo #47 — Day 5 Blastocyst</span>
-          <span class="re-patient">Patient: 34yo, AMH 2.1 ng/mL, BMI 24.2</span>
+    <div class="case-panel">
+      <div class="case-header">
+        <img src="../assets/embryo-timelapse.gif" alt="Case #47" class="case-thumb">
+        <div class="case-meta">
+          <span class="case-badge">Case &middot; Where AI adds the most</span>
+          <span class="case-id">Case #47 &middot; Day 5 Blastocyst</span>
+          <span class="case-demo">Bonna: p = 0.72 &middot; Embryologist panel median IPG = 3.1 &middot; Actual: FHB+</span>
         </div>
+        <span class="case-stage-tag">STAGE 04</span>
       </div>
-      <div class="re-body">
-        <p><strong>Embryo #47</strong> sits in the "fair quality" group (Gardner BB) — exactly where Bonna's advantage is largest. In this quality tier, the DNN achieved AUC <strong>0.67 vs 0.53</strong> for embryologists. Across all 36 panelists, no embryologist individually outperformed the model on ROC analysis. The model correctly predicted #47 would implant with <strong>p = 0.72</strong>, while the average embryologist IPG of 3.1 translated to a borderline call.</p>
+      <div class="case-body">
+        <p><strong>Case #47</strong> sits in the fair-quality stratum (Gardner BB) &mdash; exactly where embryologist agreement drops to <code>&kappa; = 0.25</code>. In this stratum, the <em>Human Reproduction</em> 2022 study showed the DNN achieved <strong>AUC 0.67 versus 0.53</strong> for the 36-panelist mean. For Case #47 specifically, Bonna returned <strong>p = 0.72</strong> (transfer); the panel was split 25&ndash;11; the embryo implanted and delivered. This case is a <em>concordance with truth</em> example, not a disagreement-with-embryologist example. Where the AI most reliably contributes is the borderline stratum.</p>
       </div>
     </div>
 
     <div class="content">
-      <section class="content-section stat-grid" aria-label="Performance metrics">
+      <section class="stat-grid" aria-label="Performance metrics">
         <div class="stat-card">
-          <div class="stat-value stage-accent">0.754</div>
-          <div class="stat-label">AUC (Bonna)</div>
-          <div class="stat-sub">10-fold CV, 1,292 KID embryos</div>
+          <div class="stat-value">0.754</div>
+          <div class="stat-label">Bonna AUC</div>
+          <div class="stat-sub">10-fold CV &middot; 1,292 KID embryos &middot; 4 countries</div>
         </div>
         <div class="stat-card">
-          <div class="stat-value stage-accent">0.707</div>
+          <div class="stat-value">0.707</div>
           <div class="stat-label">iDAScore v2</div>
-          <div class="stat-sub">Previous best-in-class</div>
+          <div class="stat-sub">Vitrolife &middot; previous best-in-class</div>
         </div>
         <div class="stat-card">
-          <div class="stat-value stage-accent">0.700</div>
+          <div class="stat-value">0.700</div>
           <div class="stat-label">Ubar (2022)</div>
-          <div class="stat-sub">Rhea's predecessor model</div>
+          <div class="stat-sub">Rhea Labs predecessor (Hum Reprod)</div>
         </div>
         <div class="stat-card">
-          <div class="stat-value stage-accent">0.570</div>
-          <div class="stat-label">Embryologists</div>
-          <div class="stat-sub">Average of 36 professionals</div>
+          <div class="stat-value">0.570</div>
+          <div class="stat-label">Embryologist mean</div>
+          <div class="stat-sub">n = 36 senior embryologists, 13 countries</div>
         </div>
       </section>
 
-      <section class="content-section split" aria-label="Charts">
+      <section class="split" aria-label="Performance charts">
         <figure class="image-frame">
-          <img src="../assets/auc-comparison-chart.png" alt="Bar chart comparing AUC of embryo assessment models from 2016 through 2024">
-          <figcaption class="image-caption">AUC COMPARISON — Day 5 embryo assessment models (2016–2024)</figcaption>
+          <img src="../assets/auc-comparison-chart.png" alt="AUC comparison across embryo assessment models 2016-2024">
+          <figcaption class="image-caption">AUC COMPARISON &middot; Day 5 assessment models, 2016&ndash;2024</figcaption>
         </figure>
         <figure class="image-frame">
           <img src="../assets/roc-curve-vs-embryologists.png" alt="ROC curves comparing deep learning model to 36 embryologists">
-          <figcaption class="image-caption">ROC CURVE — Deep learning model (AUC=0.70) vs 36 embryologists (AUC=0.61)</figcaption>
+          <figcaption class="image-caption">ROC CURVE &middot; DNN (AUC 0.70) vs 36 embryologists (AUC 0.61)</figcaption>
         </figure>
       </section>
 
-      <section class="content-section card" aria-labelledby="evo-heading">
-        <div class="card-header" id="evo-heading">EVOLUTION OF RHEA'S MODELS</div>
+      <section class="card" aria-labelledby="evo-heading">
+        <div class="card-header" id="evo-heading">Four peer-reviewed steps to state of the art</div>
         <div class="card-body">
           <ul class="timeline-list">
             <li>
-              <div class="timeline-year">2020</div>
-              <div class="timeline-title">Ubar v1 — MIDL Conference</div>
-              <p class="timeline-desc">AUC 0.82 on 272 embryos (vs 0.58 expert panel). PPV 93% vs 81%.</p>
+              <div class="timeline-year">2020 &middot; MIDL</div>
+              <div class="timeline-title">Ubar v1 &mdash; AI Improves Predictive Value for Embryo Selection</div>
+              <p class="timeline-desc">AUC 0.82 on 272 embryos (vs 0.58 for a 5-member expert panel). PPV 93% vs 81%.</p>
             </li>
             <li>
-              <div class="timeline-year">2020</div>
-              <div class="timeline-title">Ubar — ESHRE ePoster</div>
-              <p class="timeline-desc">Overall accuracy 83.8% vs 73.8% for 5-member expert panel.</p>
+              <div class="timeline-year">2020 &middot; ESHRE ePOSTER</div>
+              <div class="timeline-title">AI vs Expert Panel &mdash; Implantation Prediction</div>
+              <p class="timeline-desc">Overall accuracy 83.8% vs 73.8% for the expert panel.</p>
             </li>
             <li>
-              <div class="timeline-year">2022</div>
-              <div class="timeline-title">DNN Ensemble — Human Reproduction</div>
-              <p class="timeline-desc">AUC 0.70. Outperformed all 36 embryologists individually. 20.5% accuracy improvement.</p>
+              <div class="timeline-year">2022 &middot; HUMAN REPRODUCTION</div>
+              <div class="timeline-title">DNN Ensemble Outperforms 36 Embryologists</div>
+              <p class="timeline-desc">AUC 0.70. No individual embryologist beat the model on ROC analysis. 20.5% accuracy improvement over the panel mean.</p>
             </li>
             <li>
-              <div class="timeline-year">2024</div>
-              <div class="timeline-title">Bonna — Springer LNCS</div>
-              <p class="timeline-desc">AUC 0.754 on multi-center data from Israel, Spain, Ukraine, France. State-of-the-art.</p>
+              <div class="timeline-year">2024 &middot; SPRINGER LNCS</div>
+              <div class="timeline-title">Bonna &mdash; State-of-the-Art Multi-Center Validation</div>
+              <p class="timeline-desc">AUC 0.754 on KID data from Israel, Spain, Ukraine, and France. Outperforms iDAScore v2, KIDScore, and all published single-image models.</p>
             </li>
           </ul>
         </div>
       </section>
 
-      <aside class="content-section insight-box stage-4" aria-label="Methodological note">
-        <p class="insight-title">METHODOLOGICAL INTEGRITY</p>
-        <p>Unlike models claiming AUC &gt;0.9 (which use non-transferred embryos as negatives or human scores as ground truth), Bonna validates exclusively against Known Implantation Data (KID) — fetal heartbeat confirmed at 5-8 weeks post-transfer. This is the hardest, most clinically honest benchmark.</p>
+      <aside class="insight-box">
+        <p class="insight-title">WHY THIS AUC NUMBER IS HONEST</p>
+        <p>
+          Several embryo-AI papers report AUC &gt; 0.9. Read the methods. Those numbers typically come from (a) benchmarking against embryologist scores rather than Known Implantation Data, (b) including non-transferred embryos as negatives, or (c) mixing Day 3 and Day 5 cohorts. Bonna reports only <strong>AUC against KID with fetal heartbeat confirmed at 5&ndash;8 weeks post-transfer</strong> &mdash; the hardest, most clinically meaningful benchmark. An AUC of 0.754 on this benchmark is currently the best published.
+        </p>
       </aside>
     </div>
 
-    <p class="teaser"><span class="teaser-gold">Raw AUC tells part of the story. Bonna's confidence score tells the rest. →</span></p>
+    <p class="teaser">
+      A single probability is not enough for a clinical decision. You need its uncertainty. <span style="color: var(--stage-5);">&rarr; Confidence</span>
+    </p>
   </div>
 </body>
 </html>

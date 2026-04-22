@@ -3,292 +3,164 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Stage 06 — From Image to Insight</title>
+  <title>Stage 06 &mdash; Lab Integration</title>
   <link rel="stylesheet" href="../styles/global.css">
   <style>
-    body {
-      overflow-y: auto;
-      padding-bottom: 80px;
-    }
+    body { overflow-y: auto; padding-bottom: 80px; }
 
-    .content {
-      opacity: 1;
-      animation: none;
-      display: flex;
-      flex-direction: column;
-      gap: 2rem;
-    }
+    .module-06 .intro .label { color: var(--stage-6); }
+    .module-06 .content { opacity: 1; animation: none; display: flex; flex-direction: column; gap: 2rem; }
+    .module-06 .content > * { opacity: 0; animation: fadeUp 0.8s var(--ease-out-expo) forwards; }
+    .module-06 .content > *:nth-child(1) { animation-delay: 0.85s; }
+    .module-06 .content > *:nth-child(2) { animation-delay: 1s; }
+    .module-06 .content > *:nth-child(3) { animation-delay: 1.15s; }
+    .module-06 .content > *:nth-child(4) { animation-delay: 1.3s; }
 
-    .content-section {
-      opacity: 0;
-      animation: fadeUp 0.8s var(--ease-out-expo) forwards;
-    }
-    .content-section:nth-child(1) { animation-delay: 0.85s; }
-    .content-section:nth-child(2) { animation-delay: 1s; }
-    .content-section:nth-child(3) { animation-delay: 1.15s; }
-    .content-section:nth-child(4) { animation-delay: 1.3s; }
+    .module-06 .insight-box { border-left-color: var(--stage-6); background: var(--stage-6-tint); }
+    .module-06 .case-stage-tag { background: var(--stage-6); }
 
-    .teaser {
-      animation-delay: 1.5s;
-    }
-
-    .stage-cyan { color: #22D3EE; }
-
-    .pipeline-flow {
-      display: flex;
-      flex-direction: column;
-      align-items: stretch;
-      gap: 0;
-      max-width: 640px;
-      margin: 0 auto;
-    }
-
+    .pipeline-flow { display: flex; flex-direction: column; gap: 0.65rem; max-width: 720px; margin: 0 auto; }
     .pipeline-step {
-      background: var(--bg-surface);
-      border-left: 3px solid #22D3EE;
-      padding: 1rem 1.2rem;
-      border-radius: 0 6px 6px 0;
+      background: var(--bg-elevated); border: 1px solid var(--border-soft);
+      border-left: 4px solid var(--stage-6);
+      padding: 1rem 1.2rem; border-radius: 10px;
+      box-shadow: var(--shadow-soft);
     }
-
     .pipeline-step-num {
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      color: #22D3EE;
-      letter-spacing: 0.08em;
-      margin-bottom: 0.35rem;
+      font-family: var(--font-mono); font-size: 0.68rem;
+      color: var(--stage-6); letter-spacing: 0.1em;
+      margin-bottom: 0.4rem; font-weight: 600;
     }
-
-    .pipeline-step-title {
-      font-size: 0.82rem;
-      font-weight: 600;
-      margin-bottom: 0.4rem;
-    }
-
-    .pipeline-step-desc {
-      font-size: 0.75rem;
-      color: var(--text-secondary);
-      line-height: 1.6;
-    }
-
+    .pipeline-step-title { font-size: 0.98rem; font-weight: 600; margin-bottom: 0.4rem; color: var(--text-primary); }
+    .pipeline-step-desc { font-size: 0.88rem; color: var(--text-body); line-height: 1.6; }
     .pipeline-code {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      color: #22D3EE;
-      background: rgba(34, 211, 238, 0.08);
-      padding: 0.1em 0.35em;
-      border-radius: 3px;
+      font-family: var(--font-mono); font-size: 0.82rem;
+      color: var(--stage-6); background: var(--stage-6-tint);
+      padding: 0.12em 0.4em; border-radius: 4px;
     }
-
     .pipeline-arrow {
-      height: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .pipeline-arrow::after {
-      content: '';
-      width: 0;
-      height: 0;
-      border-left: 8px solid transparent;
-      border-right: 8px solid transparent;
-      border-top: 10px solid #22D3EE;
-      opacity: 0.85;
-    }
-
-    .card-body.infra-text,
-    .card-body.equation-intro {
-      font-size: 0.82rem;
-      color: var(--text-secondary);
-      line-height: 1.65;
+      height: 16px; display: flex; align-items: center; justify-content: center;
+      color: var(--stage-6); font-size: 0.85rem;
     }
 
     .equation-block {
-      background: var(--bg-deep);
-      border: 1px solid rgba(255, 255, 255, 0.06);
-      border-radius: 6px;
-      padding: 0.85rem 1rem;
+      background: var(--bg-sunken);
+      border: 1px solid var(--border-soft);
+      border-radius: 8px;
+      padding: 0.9rem 1.1rem;
       margin-top: 0.75rem;
       font-family: var(--font-mono);
-      font-size: 0.78rem;
-      line-height: 1.55;
+      font-size: 0.92rem;
+      line-height: 1.6;
       color: var(--text-primary);
+      overflow-x: auto;
     }
+    .equation-block:first-child { margin-top: 0; }
 
-    .equation-block:first-of-type {
-      margin-top: 0;
-    }
-
-    .var-p { color: #22D3EE; }
-    .var-f { color: #FBBF24; }
-    .var-age { color: #FF6B8A; }
-
-    .teaser-rose {
-      color: #F472B6;
-    }
-
-    .running-example {
-      width: 100%;
-      max-width: 1100px;
-      margin-bottom: 2rem;
-      background: var(--bg-surface);
-      border: 1px solid rgba(155, 125, 255, 0.2);
-      border-radius: 8px;
-      overflow: hidden;
-      opacity: 0;
-      animation: fadeUp 0.8s var(--ease-out-expo) 0.55s forwards;
-    }
-    .re-header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 0.8rem 1rem;
-      background: var(--bg-elevated);
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-    }
-    .re-thumb {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid rgba(155, 125, 255, 0.3);
-    }
-    .re-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 0.15rem;
-    }
-    .re-badge {
-      font-family: var(--font-mono);
-      font-size: 0.5rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #9B7DFF;
-    }
-    .re-id {
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-    .re-patient {
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      color: var(--text-muted);
-    }
-    .re-body {
-      padding: 1rem 1.2rem;
-      font-size: 0.78rem;
-      color: var(--text-secondary);
-      line-height: 1.65;
-    }
-    .re-body strong { color: var(--text-primary); font-weight: 600; }
-    .re-body code {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      background: var(--bg-elevated);
-      padding: 0.1rem 0.35rem;
-      border-radius: 3px;
-    }
-
-    @keyframes fadeUp {
-      from {
-        opacity: 0;
-        transform: translateY(20px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
+    .var-p { color: var(--stage-6); font-weight: 600; }
+    .var-f { color: var(--stage-5); font-weight: 600; }
+    .var-age { color: var(--stage-1); font-weight: 600; }
   </style>
 </head>
 <body>
-  <div class="module-container">
+  <div class="module-container module-06">
     <header class="intro">
-      <p class="label stage-cyan">STAGE 06</p>
-      <h1>From Image to Insight</h1>
-      <p>In production, the Bonna pipeline runs on EC2 with GPU acceleration, processing embryo images through an SQS queue and computing cycle-level live birth probabilities.</p>
+      <p class="label">STAGE 06 &middot; LAB INTEGRATION</p>
+      <h1>How Bonna fits into your existing lab workflow</h1>
+      <p>
+        Bonna ingests directly from EmbryoScope, Geri, Miri, or manual capture. Inference runs on cloud GPU, autoscales per cycle, and returns a cycle-level live-birth probability via a WebSocket to your lab dashboard or LIMS.
+      </p>
     </header>
 
-    <div class="running-example">
-      <div class="re-header">
-        <img src="../assets/embryo-timelapse.gif" alt="Embryo #47" class="re-thumb">
-        <div class="re-meta">
-          <span class="re-badge">RUNNING EXAMPLE</span>
-          <span class="re-id">Embryo #47 — Day 5 Blastocyst</span>
-          <span class="re-patient">Patient: 34yo, AMH 2.1 ng/mL, BMI 24.2</span>
+    <div class="case-panel">
+      <div class="case-header">
+        <img src="../assets/embryo-timelapse.gif" alt="Case #47" class="case-thumb">
+        <div class="case-meta">
+          <span class="case-badge">Case &middot; End-to-end in production</span>
+          <span class="case-id">Case #47 &middot; Day 5 Blastocyst</span>
+          <span class="case-demo">Cycle contained 7 embryos &middot; total inference time &lt; 90s</span>
         </div>
+        <span class="case-stage-tag">STAGE 06</span>
       </div>
-      <div class="re-body">
-        <p>In production: the clinic uploads <strong>Embryo #47's</strong> image via the GenPrime web interface. It's queued to 8 SQS fold-specific queues. EC2 returns <code>p_implantation = 72%</code>, <code>s_implantation = 5%</code>, <code>p_aneuploidy = 22%</code> (age 34). When the cycle's 6 other embryos finish scoring, the Lambda computes: <code>p_livebirth = 1 - ∏(1 - 0.875 × pᵢ) = 84%</code> for the full cycle. A <code>cycle_done</code> WebSocket event fires to the clinic dashboard.</p>
+      <div class="case-body">
+        <p>At ~113h post-insemination, the clinic&rsquo;s EmbryoScope uploaded Case #47&rsquo;s frame to Rhea Labs via the clinic gateway. It was queued to 8 fold-specific SQS queues. EC2 returned <code>p_implantation = 0.72</code>, <code>&sigma; = 0.048</code>, <code>p_aneuploidy = 0.22</code> (age-conditioned). When the cycle&rsquo;s remaining 6 embryos had been scored, the cycle-level Lambda computed <code>p_livebirth = 1 &minus; &prod;(1 &minus; 0.875 &times; p<sub>i</sub>) = 0.84</code>. A <code>cycle_done</code> WebSocket event was pushed to the lab dashboard within 90 seconds of the last frame upload.</p>
       </div>
     </div>
 
     <div class="content">
-      <section class="content-section pipeline-flow" aria-label="Production pipeline">
+      <section class="pipeline-flow" aria-label="Production pipeline">
         <div class="pipeline-step">
-          <div class="pipeline-step-num">STEP 01</div>
-          <div class="pipeline-step-title">CLINIC UPLOAD</div>
-          <p class="pipeline-step-desc">Day-5 blastocyst image or TLI video uploaded via web interface. Videos undergo frame selection (gradient analysis, HPI heuristics).</p>
+          <div class="pipeline-step-num">STEP 01 &middot; CLINIC INGEST</div>
+          <div class="pipeline-step-title">EmbryoScope / Geri / Miri &rarr; Rhea gateway</div>
+          <p class="pipeline-step-desc">Direct integration with Vitrolife EmbryoScope (via EmbryoViewer export), Genea Biomedx Geri (via Geri Connect API), Esco Miri TL. Manual upload is also supported. TLI videos undergo automated frame selection (gradient analysis + HPI heuristics) to pick the representative Day-5 frame.</p>
         </div>
-        <div class="pipeline-arrow" aria-hidden="true"></div>
+        <div class="pipeline-arrow" aria-hidden="true">&darr;</div>
+
         <div class="pipeline-step">
-          <div class="pipeline-step-num">STEP 02</div>
-          <div class="pipeline-step-title">SQS QUEUE</div>
-          <p class="pipeline-step-desc">Image queued to 8 fold-specific SQS queues for parallel inference across the ensemble.</p>
+          <div class="pipeline-step-num">STEP 02 &middot; QUEUE</div>
+          <div class="pipeline-step-title">8-way fan-out on Amazon SQS FIFO</div>
+          <p class="pipeline-step-desc">Each image is dispatched to 8 fold-specific SQS queues. Messages are processed in cycle-order to preserve clinical chronology. Each clinic&rsquo;s data is strictly isolated at the queue and S3 prefix level.</p>
         </div>
-        <div class="pipeline-arrow" aria-hidden="true"></div>
+        <div class="pipeline-arrow" aria-hidden="true">&darr;</div>
+
         <div class="pipeline-step">
-          <div class="pipeline-step-num">STEP 03</div>
-          <div class="pipeline-step-title">EC2 GPU INFERENCE</div>
-          <p class="pipeline-step-desc">MobileNetV2 + DoodleP2P + ViT ensemble processes at 256×256 RGB. Mean of 8 folds = p_implantation. STD = confidence.</p>
+          <div class="pipeline-step-num">STEP 03 &middot; INFERENCE</div>
+          <div class="pipeline-step-title">EC2 GPU &mdash; MobileNetV2 + DoodleEncoder + ViT</div>
+          <p class="pipeline-step-desc">Inference executes at 256&times;256 RGB on G5-class GPU. Mean of 8 folds = <code class="pipeline-code">p_implantation</code>. STD across the 256 Monte-Carlo passes = confidence. Typical per-embryo latency: &lt; 4s.</p>
         </div>
-        <div class="pipeline-arrow" aria-hidden="true"></div>
+        <div class="pipeline-arrow" aria-hidden="true">&darr;</div>
+
         <div class="pipeline-step">
-          <div class="pipeline-step-num">STEP 04</div>
-          <div class="pipeline-step-title">ANEUPLOIDY ESTIMATION</div>
-          <p class="pipeline-step-desc">Age-based parametric sigmoid: 20% at young ages → 90% at advanced maternal age. PSigmoid(0.20, 0.90, 35.0, 0.25).</p>
+          <div class="pipeline-step-num">STEP 04 &middot; ANEUPLOIDY RISK</div>
+          <div class="pipeline-step-title">Age-conditioned parametric estimate</div>
+          <p class="pipeline-step-desc">Where PGT-A has not been performed, the pipeline adds an age-based aneuploidy prior derived from published reference curves: <code class="pipeline-code">PSigmoid(0.20, 0.90, 35.0, 0.25)</code>. This is <em>not</em> a substitute for PGT-A; it is a population prior that helps calibrate cycle-level expectations.</p>
         </div>
-        <div class="pipeline-arrow" aria-hidden="true"></div>
+        <div class="pipeline-arrow" aria-hidden="true">&darr;</div>
+
         <div class="pipeline-step">
-          <div class="pipeline-step-num">STEP 05</div>
-          <div class="pipeline-step-title">CYCLE MODEL (Lambda)</div>
-          <p class="pipeline-step-desc">When all embryos scored: p_livebirth = 1 - ∏(1 - FHB2LB × p_i). Computes high/mid/low confidence bands by age.</p>
+          <div class="pipeline-step-num">STEP 05 &middot; CYCLE-LEVEL MODEL</div>
+          <div class="pipeline-step-title">AWS Lambda &mdash; live-birth probability</div>
+          <p class="pipeline-step-desc">When all embryos for the cycle have scored, a Lambda combines per-embryo <code class="pipeline-code">p_implantation</code> with the age-conditioned fetal-heartbeat-to-live-birth factor FHB2LB to produce a single cycle live-birth probability, plus high / mid / low confidence bands.</p>
         </div>
-        <div class="pipeline-arrow" aria-hidden="true"></div>
+        <div class="pipeline-arrow" aria-hidden="true">&darr;</div>
+
         <div class="pipeline-step">
-          <div class="pipeline-step-num">STEP 06</div>
-          <div class="pipeline-step-title">WEBSOCKET NOTIFY</div>
-          <p class="pipeline-step-desc">Real-time <code class="pipeline-code">cycle_done</code> event pushes results to clinic dashboard.</p>
+          <div class="pipeline-step-num">STEP 06 &middot; DELIVERY</div>
+          <div class="pipeline-step-title">WebSocket to dashboard / LIMS</div>
+          <p class="pipeline-step-desc">Results are pushed in real time via WebSocket to the lab dashboard. A signed JSON payload is also delivered to the clinic&rsquo;s LIMS (HL7 FHIR-compatible) for durable record-keeping and downstream reporting.</p>
         </div>
       </section>
 
-      <section class="content-section card" aria-labelledby="autoscal-heading">
-        <div class="card-header" id="autoscal-heading">AUTO-SCALING INFRASTRUCTURE</div>
-        <div class="card-body infra-text">
-          <p>The EC2 instance auto-hibernates after 10 minutes of no messages, minimizing cost. Model weights (2024-12-31.zip) are versioned in S3 with hot-swap capability — the service checks for updates hourly and restarts seamlessly. Each clinic&rsquo;s data is isolated and processed in-order via SQS FIFO.</p>
+      <article class="card">
+        <div class="card-header">Infrastructure &middot; Versioning, auto-scaling, data isolation</div>
+        <div class="card-body">
+          <p style="margin-bottom: 0.7rem;">The EC2 inference service auto-hibernates after 10 minutes of inactivity and cold-starts on the first queued message, minimizing idle cost for low-volume clinics. Model weights are versioned in S3 (e.g. <code>weights/2024-12-31.zip</code>) with hot-swap: the service checks for updates hourly and rolls over to the new checkpoint without interrupting in-flight inference.</p>
+          <p style="margin: 0;">Each clinic operates in its own data partition (S3 prefix, SQS queue group, Postgres schema). No embryo image leaves the clinic&rsquo;s region of residency. For the GenPrime clinics, inference runs in AWS ap-southeast-1 (Singapore).</p>
         </div>
-      </section>
+      </article>
 
-      <section class="content-section card" aria-labelledby="math-heading">
-        <div class="card-header" id="math-heading">LIVE BIRTH PROBABILITY — THE MATH</div>
-        <div class="card-body equation-intro">
+      <article class="card">
+        <div class="card-header">Cycle-level model &middot; Live-birth probability</div>
+        <div class="card-body">
           <div class="equation-block" aria-label="Overall implantation probability">
             <span class="var-p">p_overall</span> = mean(<span class="var-p">p_implantation</span><sub>1</sub>, <span class="var-p">p_implantation</span><sub>2</sub>, &hellip;, <span class="var-p">p_implantation</span><sub>n</sub>)
           </div>
           <div class="equation-block" aria-label="Live birth probability">
-            <span class="var-p">p_livebirth</span> = 1 - ∏<sub>i</sub>(1 - <span class="var-f">FHB2LB</span>(<span class="var-age">age</span>) × <span class="var-p">p</span><sub>i</sub>)
+            <span class="var-p">p_livebirth</span> = 1 &minus; &prod;<sub>i</sub>(1 &minus; <span class="var-f">FHB2LB</span>(<span class="var-age">age</span>) &middot; <span class="var-p">p</span><sub>i</sub>)
           </div>
           <div class="equation-block" aria-label="FHB2LB sigmoid">
-            <span class="var-f">FHB2LB</span>(<span class="var-age">age</span>) = sigmoid(0, 0.875, 44.96, -0.464)
+            <span class="var-f">FHB2LB</span>(<span class="var-age">age</span>) = sigmoid(offset=0, max=0.875, mid=44.96, slope=&minus;0.464)
           </div>
+          <p style="margin-top: 0.85rem; font-size: 0.9rem; color: var(--text-body); line-height: 1.6;">
+            The FHB2LB factor is the age-conditioned probability that a confirmed fetal heartbeat at 5&ndash;8 weeks proceeds to live birth. It is fit to published Rhea outcome data (primary endpoint: live birth, not clinical pregnancy). This matters for your patient conversations: a cycle live-birth number that is honestly below clinical pregnancy but honestly above 0 is a better basis for shared decision-making than an inflated p-pregnancy.
+          </p>
         </div>
-      </section>
+      </article>
     </div>
 
-    <p class="teaser"><span class="teaser-rose">The pipeline delivers numbers. The product delivers understanding. →</span></p>
+    <p class="teaser">
+      Infrastructure is table stakes. The question is: what do you &mdash; the embryologist &mdash; see, and do, on Day 5? <span style="color: var(--stage-7);">&rarr; Clinical workflow</span>
+    </p>
   </div>
 </body>
 </html>

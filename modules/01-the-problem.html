@@ -3,189 +3,107 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Journey Canvas — Stage 01: The Subjective Eye</title>
+  <title>Stage 01 — The Clinical Problem</title>
   <link rel="stylesheet" href="../styles/global.css" />
   <style>
-    @keyframes fadeUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    body { overflow-y: auto; padding-bottom: 80px; }
 
-    .module-01 .intro .label {
-      color: #ff6b8a;
-      animation: fadeUp 0.8s var(--ease-out-expo) 0.2s forwards;
-    }
+    .module-01 .intro .label { color: var(--stage-1); }
+    .module-01 .content { opacity: 1; animation: none; display: flex; flex-direction: column; gap: 2rem; }
+    .module-01 .content > * { opacity: 0; animation: fadeUp 0.75s var(--ease-out-expo) forwards; }
+    .module-01 .content > *:nth-child(1) { animation-delay: 0.7s; }
+    .module-01 .content > *:nth-child(2) { animation-delay: 0.9s; }
+    .module-01 .content > *:nth-child(3) { animation-delay: 1.1s; }
+    .module-01 .content > *:nth-child(4) { animation-delay: 1.3s; }
 
-    .module-01 .intro h1 {
-      animation: fadeUp 0.8s var(--ease-out-expo) 0.35s forwards;
-    }
+    .module-01 .insight-box { border-left-color: var(--stage-1); background: var(--stage-1-tint); }
+    .module-01 .stat-value { color: var(--stage-1); }
+    .module-01 .case-stage-tag { background: var(--stage-1); }
 
-    .module-01 .intro p {
-      animation: fadeUp 0.8s var(--ease-out-expo) 0.5s forwards;
-    }
-
-    .module-01 .content {
-      animation: none;
-      opacity: 1;
-    }
-
-    .module-01 .content > * {
-      opacity: 0;
-      animation: fadeUp 0.75s var(--ease-out-expo) forwards;
-    }
-
-    .module-01 .content > *:nth-child(1) { animation-delay: 0.65s; }
-    .module-01 .content > *:nth-child(2) { animation-delay: 0.85s; }
-    .module-01 .content > *:nth-child(3) { animation-delay: 1.05s; }
-
-    .module-01 .teaser {
-      animation: fadeUp 0.8s var(--ease-out-expo) 1.35s forwards;
-    }
-
-    .module-01 .insight-box {
-      border-left-color: #ff6b8a;
-    }
-
-    .module-01 .insight-cite {
+    .insight-cite {
       display: block;
       margin-top: 0.75rem;
+      font-family: var(--font-mono);
       font-size: 0.72rem;
       color: var(--text-muted);
       font-style: italic;
     }
-
-    .running-example {
-      width: 100%;
-      max-width: 1100px;
-      margin-bottom: 2rem;
-      background: var(--bg-surface);
-      border: 1px solid rgba(155, 125, 255, 0.2);
-      border-radius: 8px;
-      overflow: hidden;
-      opacity: 0;
-      animation: fadeUp 0.8s var(--ease-out-expo) 0.55s forwards;
-    }
-    .re-header {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      padding: 0.8rem 1rem;
-      background: var(--bg-elevated);
-      border-bottom: 1px solid rgba(255,255,255,0.04);
-    }
-    .re-thumb {
-      width: 48px;
-      height: 48px;
-      border-radius: 50%;
-      object-fit: cover;
-      border: 2px solid rgba(155, 125, 255, 0.3);
-    }
-    .re-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 0.15rem;
-    }
-    .re-badge {
-      font-family: var(--font-mono);
-      font-size: 0.5rem;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: #9B7DFF;
-    }
-    .re-id {
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-    .re-patient {
-      font-family: var(--font-mono);
-      font-size: 0.6rem;
-      color: var(--text-muted);
-    }
-    .re-body {
-      padding: 1rem 1.2rem;
-      font-size: 0.78rem;
-      color: var(--text-secondary);
-      line-height: 1.65;
-    }
-    .re-body strong { color: var(--text-primary); font-weight: 600; }
-    .re-body code {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      background: var(--bg-elevated);
-      padding: 0.1rem 0.35rem;
-      border-radius: 3px;
-    }
   </style>
 </head>
-<body style="overflow-y: auto; padding-bottom: 80px;">
+<body>
   <div class="module-container module-01">
     <header class="intro">
-      <div class="label">STAGE 01</div>
-      <h1>The Subjective Eye</h1>
+      <div class="label">STAGE 01 &middot; FOR THE EMBRYOLOGIST</div>
+      <h1>Why interobserver variability still limits your cycle outcomes</h1>
       <p>
-        Embryo selection is the single most impactful decision in IVF — yet it's done by eye, and embryologists disagree 50% of the time on borderline cases.
+        You know this already: two embryologists looking at the same Day 5 blastocyst will often disagree. Published evidence puts a number on it &mdash; and that number is the clinical problem Bonna was built to solve.
       </p>
     </header>
 
-    <div class="running-example">
-      <div class="re-header">
-        <img src="../assets/embryo-timelapse.gif" alt="Embryo #47" class="re-thumb">
-        <div class="re-meta">
-          <span class="re-badge">RUNNING EXAMPLE</span>
-          <span class="re-id">Embryo #47 — Day 5 Blastocyst</span>
-          <span class="re-patient">Patient: 34yo, AMH 2.1 ng/mL, BMI 24.2</span>
+    <div class="case-panel">
+      <div class="case-header">
+        <img src="../assets/embryo-timelapse.gif" alt="Case #47" class="case-thumb">
+        <div class="case-meta">
+          <span class="case-badge">Case Study &middot; Introduced in Stage 01</span>
+          <span class="case-id">Case #47 &middot; Day 5 Blastocyst</span>
+          <span class="case-demo">34 yo &middot; AMH 2.1 ng/mL &middot; BMI 24.2 &middot; ICSI, own oocytes &middot; Day 5 ET</span>
         </div>
+        <span class="case-stage-tag">STAGE 01</span>
       </div>
-      <div class="re-body">
-        <p><strong>Embryo #47</strong> is a Day-5 blastocyst from a 34-year-old patient in Israel. When shown to the panel, it received IPG grades ranging from <strong>2 to 4</strong> across 36 embryologists — a "fair quality" embryo where human agreement was lowest (κ = 0.25). Eleven embryologists said "don't transfer," while 25 said "transfer." The actual outcome: <strong>successful implantation and fetal heartbeat at 7 weeks</strong>. The majority got lucky, but their reasoning was inconsistent.</p>
+      <div class="case-body">
+        <p><strong>Case #47</strong> is a morphologically borderline Gardner <strong>BB</strong> blastocyst. Full expansion, fair-to-good ICM, fair-to-good TE. When we submitted the raw time-lapse video to the <em>Human Reproduction</em> 2022 panel of 36 embryologists, it received <strong>IPG scores from 2 to 4</strong> (on a 1&ndash;5 scale). Eleven panelists said &ldquo;don&rsquo;t transfer,&rdquo; 25 said &ldquo;transfer.&rdquo; Kappa agreement on cases like this: <code>&kappa; = 0.25</code>. The actual outcome: <strong>FHB at 7 weeks, live birth</strong>.</p>
       </div>
     </div>
 
     <main class="content">
-      <div class="stat-grid">
+      <section class="stat-grid" aria-label="Published metrics on interobserver variability">
         <div class="stat-card">
           <div class="stat-value">51.9%</div>
-          <div class="stat-label">Average embryologist accuracy</div>
-          <div class="stat-sub">across 136 blastocysts</div>
+          <div class="stat-label">Mean embryologist accuracy</div>
+          <div class="stat-sub">n = 36 embryologists &middot; 136 blastocysts &middot; KID cohort</div>
         </div>
         <div class="stat-card">
-          <div class="stat-value">κ = 0.25</div>
-          <div class="stat-label">Agreement on fair-quality embryos</div>
-          <div class="stat-sub">Fleiss kappa, 36 embryologists</div>
+          <div class="stat-value">&kappa; = 0.25</div>
+          <div class="stat-label">Fleiss&rsquo; kappa on fair-quality embryos</div>
+          <div class="stat-sub">&ldquo;Fair&rdquo; agreement &middot; Landis &amp; Koch</div>
         </div>
         <div class="stat-card">
-          <div class="stat-value">75.6%</div>
-          <div class="stat-label">Predicted to implant</div>
-          <div class="stat-sub">vs 47.7% actual rate — systematic overestimation</div>
+          <div class="stat-value">+27.9%</div>
+          <div class="stat-label">Systematic overestimation</div>
+          <div class="stat-sub">75.6% predicted vs 47.7% actual implantation</div>
         </div>
-      </div>
-
-      <aside class="insight-box">
-        <div class="insight-title">THE CORE CHALLENGE</div>
-        <p>
-          No embryologist characteristic — years of experience, country, degree, or grading system — significantly predicted accuracy. The subjectivity is inherent in visual assessment itself.
-        </p>
-        <span class="insight-cite">— Fordham et al., Human Reproduction, 2022</span>
-      </aside>
+      </section>
 
       <article class="card">
-        <div class="card-header">WHAT THE DATA SHOWS</div>
+        <div class="card-header">Study design &middot; Fordham et al., Human Reproduction 2022</div>
         <div class="card-body">
-          <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem;">
-            A panel of 36 embryologists from 13 countries assessed 136 blastocyst time-lapse videos with known implantation outcomes. Each embryo received an implantation probability grade from 1 (very low) to 5 (very high).
-          </p>
-          <p style="font-size: 0.82rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 0;">
-            Embryologists showed good agreement on clearly good or poor embryos (κ = 0.65), but only fair agreement on borderline &ldquo;fair quality&rdquo; embryos (κ = 0.25). This is exactly the cohort where selection matters most — and where AI can add the greatest value.
-          </p>
+          <p style="margin-bottom: 1rem;">A blinded panel of 36 senior embryologists from 13 countries scored 136 time-lapse blastocyst videos with known implantation data (KID). Each embryologist independently assigned an Implantation Probability Grade (IPG) from 1 (very low) to 5 (very high), together with a binary transfer recommendation.</p>
+          <p style="margin-bottom: 1rem;">Agreement was stratified by embryo quality:</p>
+          <table class="clin-table">
+            <thead>
+              <tr><th>Quality stratum</th><th>Gardner grade</th><th>Fleiss&rsquo; &kappa;</th><th>Interpretation</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Clearly poor</td><td>CC / arrest</td><td>0.65</td><td>Substantial agreement</td></tr>
+              <tr><td><strong>Fair / borderline</strong></td><td><strong>BB / BC / CB</strong></td><td><strong>0.25</strong></td><td><strong>Fair agreement only</strong></td></tr>
+              <tr><td>Clearly good</td><td>AA / AB / BA</td><td>0.65</td><td>Substantial agreement</td></tr>
+            </tbody>
+          </table>
+          <p style="margin-top: 1rem; margin-bottom: 0;">The fair-quality stratum is exactly where single-embryo transfer decisions are hardest &mdash; and where AI gives the largest marginal benefit.</p>
         </div>
       </article>
+
+      <aside class="insight-box">
+        <p class="insight-title">WHAT THE DATA RULES OUT</p>
+        <p>
+          In multivariable analysis, <strong>no embryologist characteristic</strong> &mdash; years of experience, clinic volume, country, highest degree, or preferred grading system &mdash; significantly predicted accuracy. The variability is not a training problem. It is inherent to subjective visual assessment of a continuous biological signal.
+        </p>
+        <span class="insight-cite">&mdash; Fordham DE, Silver DH, et al. <em>Hum Reprod</em>, 2022</span>
+      </aside>
     </main>
 
     <p class="teaser">
-      If manual grading is inherently subjective, what would objective analysis look like?
-      <span style="color: #7dd3fc;">→</span>
+      If experience cannot close the gap, what kind of signal can? <span style="color: var(--stage-2);">&rarr; Segmentation</span>
     </p>
   </div>
 </body>
